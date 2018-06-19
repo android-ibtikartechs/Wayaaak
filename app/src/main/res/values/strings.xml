@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">Wayaaak</string>
+    <string name="menu_profile">حسابي</string>
+    <string name="menu_search">بحث</string>
+    <string name="menu_cart">مشترياتى</string>
+    <string name="menu_home">الرئيسية</string>
+    <string name="menu_discount">خصومات</string>
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
+    <string name="login_txt">Login</string>
+    <string name="facebook_app_id">170045700237335</string>
+    <string name="fb_login_protocol_scheme">fb170045700237335</string>
+    <string name="google_maps_key">AIzaSyD6V2lTLG27sW6KfWl2POqs6KwKQL7otyE</string>
+    <string name="com.twitter.sdk.android.CONSUMER_KEY" translatable="false">MRpRMwcvhnAkyZ3E7jzbTTRKe</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET" translatable="false">fN4fyt46rJTeNWuYr3sHZH7ICra7FU1n3ipBglP4YoFuguTzTb</string>
+    <string name="pls_wait">Please wait..</string>
+    <string name="fetch_done">جارى جلب المعلومات</string>
+    <string name="fetch_error">لقد حدث خطأ ما برجاء المحاولة مرة اخرى</string>
+    <string name="user_cancle">تم الألغاء من قبل المستخدم</string>
+    <string name="user_complete">الأن اكمل بيانتك لأستكمال التسجيل</string>
+
+    <string-array name="qty">
+        <item>Select</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
+    <string-array name="qtysmall">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
+    <string-array name="area">
+        <item>الحى/المدينة</item>
+    </string-array>
+    <string-array name="city">
+        <item>المحافظة</item>
+    </string-array>
+    <string-array name="country">
+        <item>الدولة</item>
+    </string-array>
+
+</resources>

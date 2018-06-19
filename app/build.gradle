@@ -1,0 +1,60 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        releasePC {
+            keyAlias 'wayaaak'
+            keyPassword 'wayaaak'
+            storeFile file('E:/Projects/wayaaak.jks')
+            storePassword 'wayaaak'
+        }
+        releaseLabTop {
+            keyAlias 'wayaaak'
+            keyPassword 'wayaaak'
+            storeFile file('E:/Project_files/wayaaak/wayaaak.jks')
+            storePassword 'wayaaak'
+        }
+    }
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.ibtikar.apps.wayaaak"
+        minSdkVersion 17
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0.0"
+    }
+    buildTypes {
+        releasePC {
+            signingConfig signingConfigs.releasePC
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        releaseLaptop {
+            signingConfig signingConfigs.releaseLabTop
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.alexzh:circleimageview:1.1.2@aar'
+    implementation 'com.github.hosamazzam:CustomViews:v1.0.5'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.github.hosamazzam:VolleySimple:v1.0.3'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.facebook.android:facebook-android-sdk:4.31.0'
+    implementation 'com.twitter.sdk.android:twitter:3.1.1'
+    implementation 'com.google.android.gms:play-services-auth:15.0.1'
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
+    implementation 'com.google.android.gms:play-services-maps:15.0.1'
+    implementation 'com.yarolegovich:sliding-root-nav:1.1.0'
+    implementation 'com.roughike:bottom-bar:2.3.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+}

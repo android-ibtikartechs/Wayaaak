@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:onClick="dymmyClick"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.alexzh.circleimageview.CircleImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorPrimary"
+                android:src="@drawable/profile"
+                app:view_borderColor="@color/colorPrimaryDark"
+                app:view_borderWidth="4dp" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:cardBackgroundColor="#fafafa"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+
+            <TextView
+                android:id="@+id/name_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="3dp"
+                android:gravity="center|start"
+                android:hint="full name"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:cardBackgroundColor="#fafafa"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+
+            <TextView
+                android:id="@+id/email_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="3dp"
+                android:gravity="center|start"
+                android:hint="email"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:cardBackgroundColor="#fafafa"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+
+            <TextView
+                android:id="@+id/phone_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="3dp"
+                android:gravity="center|start"
+                android:hint="phone"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:cardBackgroundColor="#fafafa"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+
+            <TextView
+                android:id="@+id/address_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="3dp"
+                android:gravity="center|start"
+                android:hint="address"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
