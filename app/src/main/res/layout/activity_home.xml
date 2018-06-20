@@ -4,6 +4,148 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".HomeActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_header" />
+
+    <RelativeLayout
+        android:id="@+id/lout_cities_spinner"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/shape_rounded_spinner"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_action_indicator" />
+
+
+        <Spinner
+            android:id="@+id/cities_spin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:entries="@array/city"
+            android:paddingStart="50dp"
+
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lout_area_spin"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/shape_rounded_spinner"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/lout_cities_spinner">
+
+        <ImageView
+            android:id="@+id/imageView20"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_action_indicator" />
+
+        <Spinner
+            android:id="@+id/area_spin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:entries="@array/area"
+            android:paddingStart="50dp"
+
+            />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/shape_rounded_spinner"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/lout_area_spin">
+
+        <ImageView
+            android:id="@+id/imageView200"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_action_indicator" />
+
+        <Spinner
+            android:id="@+id/cat_spin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:entries="@array/category"
+            android:paddingStart="50dp"
+
+            />
+    </RelativeLayout>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <Button
+        android:id="@+id/button_search"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:text="بحث"
+        android:textSize="20sp"
+        android:textColor="@color/colorPrimary"
+        android:background="@drawable/shape_rounded_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
+
 
 </android.support.constraint.ConstraintLayout>

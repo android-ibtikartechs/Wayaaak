@@ -24,4 +24,9 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
+
+    <style name="prog_bar">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
 </resources>
