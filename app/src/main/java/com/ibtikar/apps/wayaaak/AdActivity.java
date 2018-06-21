@@ -98,7 +98,8 @@ public class AdActivity extends AppCompatActivity {
                                 //moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), DEFAULT_ZOOM, "My Location");
                                 getbannerAdByLocation();
                                 Log.d("location", "onComplete: " + currentLocation.getLatitude() + " , " + currentLocation.getLongitude());
-                                LatLng latLng = new  LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                                //LatLng latLng = new  LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                                LatLng latLng = new  LatLng(Double.valueOf("27.067145"), Double.valueOf("27.96655106"));
                                 getCity(latLng);
                             }
                         }
@@ -117,6 +118,7 @@ public class AdActivity extends AppCompatActivity {
     }
 
     private void getbannerAdByLocation() {
+
     }
 
     private void getbannerAdWithoutLocation() {

@@ -31,8 +31,13 @@ import java.util.List;
 public class WayaaakAPP {
 
     public static String BASE_URL = "http://wayaaak.ibtikarprojects.com/mobile/";
+
     public static boolean USER_ISLOGIN = false;
     public static List<Cart> cartProducts = new ArrayList<>();
+    public static String KEY_CITY_ID = "cityId";
+    public static String KEY_AREA_ID = "areaId";
+    public static String KEY_CAT_ID = "catId";
+    public static String KEY_FLAG_SEARCH = "key_flag_search";
 
     public static void changeLang(Context context, String lang) { // func to change lang
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);

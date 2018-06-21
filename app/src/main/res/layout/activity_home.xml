@@ -80,6 +80,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:entries="@array/area"
+            android:gravity="center_vertical"
             android:paddingStart="50dp"
 
             />

@@ -1,15 +1,23 @@
 package com.ibtikar.apps.wayaaak.Fragment;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,10 +26,10 @@ import com.google.gson.Gson;
 import com.hosamazzam.volleysimple.VolleySimple;
 import com.ibtikar.apps.wayaaak.Adapters.List_Adapter;
 import com.ibtikar.apps.wayaaak.Dialogs.Filter_Bottom_Sheet;
-import com.ibtikar.apps.wayaaak.MainActivity;
 import com.ibtikar.apps.wayaaak.Models.Response.ListResponse;
 import com.ibtikar.apps.wayaaak.Models.User;
 import com.ibtikar.apps.wayaaak.R;
+import com.ibtikar.apps.wayaaak.Tools.SwipeDismissTouchListener;
 import com.ibtikar.apps.wayaaak.Tools.WayaaakAPP;
 
 import java.io.IOException;
@@ -37,11 +45,8 @@ import okhttp3.Response;
 
 import static okhttp3.MultipartBody.FORM;
 
-/**
- * Created by Hosam Azzam on 2/22/2018.
- */
+public class SearchDialogFragment  extends DialogFragment {
 
-public class Search_Fragment extends Fragment implements MainActivity.OnAboutDataReceivedListener {
     VolleySimple volleySimple;
     RecyclerView result_list;
     List_Adapter listAdapter;
@@ -51,38 +56,39 @@ public class Search_Fragment extends Fragment implements MainActivity.OnAboutDat
     Map<String, String> filtermap = new HashMap<>();
     User user;
 
-
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootview = inflater.inflate(R.layout.fragment_search, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.search_dialog_fragment, container, false);
+        if (getArguments() != null) {
+            String cityId = getArguments().getString(WayaaakAPP.KEY_CITY_ID);
+            String catId = getArguments().getString(WayaaakAPP.KEY_CAT_ID);
+            String areaId = getArguments().getString(WayaaakAPP.KEY_AREA_ID);
+            search2(catId, cityId, areaId);
+        }
         volleySimple = VolleySimple.getInstance(getContext());
         if (WayaaakAPP.getUserLoginState(getContext())) {
             user = WayaaakAPP.getUserLoginInfo(getContext());
             filtermap.put("user", String.valueOf(user.getId()));
         }
-        initView(rootview);
-        //init();
+        initView(rootView);
         listener();
-        if (getArguments() != null) {
-          /*  String cityId = getArguments().getString(WayaaakAPP.KEY_CITY_ID);
-            String catId = getArguments().getString(WayaaakAPP.KEY_CAT_ID);
-            String areaId = getArguments().getString(WayaaakAPP.KEY_AREA_ID);
 
-            FragmentManager fm = getChildFragmentManager();
-            SearchDialogFragment searchDialogFragment = new SearchDialogFragment();
-            searchDialogFragment.show(fm, "search_dialog"); */
-            //onDataReceived(catId,cityId,areaId);
-        }
-        else
-            init();
-        return rootview;
+        return rootView;
+    }
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        final LinearLayout root = new LinearLayout(getActivity());
+        root.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(root);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setGravity(Gravity.TOP);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        return dialog;
     }
 
     public void initView(View view) {
@@ -92,6 +98,9 @@ public class Search_Fragment extends Fragment implements MainActivity.OnAboutDat
         search_txt = view.findViewById(R.id.search_txt);
         empty_holder = view.findViewById(R.id.no_item_holder);
         result_list.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        int resId = R.anim.layout_animation_fall_down;
+        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getActivity(), resId);
+        result_list.setLayoutAnimation(animation);
 
     }
 
@@ -185,7 +194,6 @@ public class Search_Fragment extends Fragment implements MainActivity.OnAboutDat
         }, progressDialog);
     }
 
-
     private void search2(String catlId, String cityId, String areaId)
     {
         if (cityId == null)
@@ -238,22 +246,16 @@ public class Search_Fragment extends Fragment implements MainActivity.OnAboutDat
         });
     }
 
-
     @Override
-    public void onDataReceived(String catlId, String cityId, String areaId) {
-        if (catlId == null)
-            catlId = "";
+    public void onResume() {
+        super.onResume();
+        Window window = getDialog().getWindow();
+        window.getDecorView().setOnTouchListener(new SwipeDismissTouchListener(window.getDecorView(), null, new SwipeDismissTouchListener.OnDismissCallback() {
 
-        Map<String, String> data = new HashMap<String, String>();
-        data.put("category", catlId);
-        data.put("city", cityId);
-        data.put("area", areaId);
-        data.put("keyword", "بل");
-        data.put("price_from",null);
-        data.put("price_to",null);
-        data.put("hasoffer",null);
-        //search(data);
-        search2(catlId,cityId,areaId);
+            @Override
+            public void onDismiss(View view, Object token) {
+                dismiss();
+            }
+        }));
     }
 }
-

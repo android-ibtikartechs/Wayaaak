@@ -1,11 +1,14 @@
 package com.ibtikar.apps.wayaaak;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
@@ -19,6 +22,7 @@ import com.ibtikar.apps.wayaaak.Fragment.Home_Fragment;
 import com.ibtikar.apps.wayaaak.Fragment.ListFragment;
 import com.ibtikar.apps.wayaaak.Fragment.Login_Fragment;
 import com.ibtikar.apps.wayaaak.Fragment.Profile_Fragment;
+import com.ibtikar.apps.wayaaak.Fragment.SearchDialogFragment;
 import com.ibtikar.apps.wayaaak.Fragment.Search_Fragment;
 import com.ibtikar.apps.wayaaak.Models.Category;
 import com.ibtikar.apps.wayaaak.Models.ListItem;
@@ -40,12 +44,14 @@ public class MainActivity extends AppCompatActivity {
     ExpandableListView catnawlist;
     private SlidingRootNav slidingRootNav;
     BottomBar bottomBar;
-
+    private OnAboutDataReceivedListener mAboutDataListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         WayaaakAPP.initCartProducts(this);
+        Intent intent = getIntent();
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         volleySimple = VolleySimple.getInstance(this);
@@ -60,8 +66,21 @@ public class MainActivity extends AppCompatActivity {
         AppRater.app_launched(this);
 
         bottomBar = findViewById(R.id.bottomBar);
+
         BottomBarTab carticon = bottomBar.getTabWithId(R.id.menu_cart);
         carticon.setBadgeCount(WayaaakAPP.getCartProducts(this).size());
+
+
+
+      /*  getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_fragment_container, new Home_Fragment(), "Home_Fragment")
+                .commit(); */
+
+
+        catnawlist = findViewById(R.id.catgoryList);
+
+        System.out.println(WayaaakAPP.printHashKey(this));
 
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
@@ -117,21 +136,57 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_fragment_container, new Home_Fragment(), "Home_Fragment")
-                .commit();
+        if (intent.getBooleanExtra(WayaaakAPP.KEY_FLAG_SEARCH,false))
+        {
+            Search_Fragment search_fragment = new Search_Fragment();
 
 
-        catnawlist = findViewById(R.id.catgoryList);
+            String cityId = intent.getStringExtra(WayaaakAPP.KEY_CITY_ID);
+            String areaId = intent.getStringExtra(WayaaakAPP.KEY_AREA_ID);
+            String catId = intent.getStringExtra(WayaaakAPP.KEY_CAT_ID);
+          /*  Bundle bundle = new Bundle();
+            bundle.putString(WayaaakAPP.KEY_CITY_ID, cityId);
+            bundle.putString(WayaaakAPP.KEY_AREA_ID, areaId);
+            bundle.putString(WayaaakAPP.KEY_CAT_ID, catId);
+            search_fragment.setArguments(bundle);
+            //bottomBar.selectTabWithId(R.id.menu_search);
+            //bottomBar.setDefaultTab(R.id.menu_search);
+            /* getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_fragment_container, search_fragment, "Search_Fragment")
+                    .commit(); */
 
-        System.out.println(WayaaakAPP.printHashKey(this));
+            //bottomBar.setSelectedItemId(R.id.my_menu_item_id);;
+            //mAboutDataListener.onDataReceived(catId, cityId, areaId);
+            FragmentManager fm = getSupportFragmentManager();
+            SearchDialogFragment searchDialogFragment = new SearchDialogFragment();
+
+
+            Bundle bundle1 = new Bundle();
+            bundle1.putString(WayaaakAPP.KEY_CITY_ID, cityId);
+            bundle1.putString(WayaaakAPP.KEY_AREA_ID, areaId);
+            bundle1.putString(WayaaakAPP.KEY_CAT_ID, catId);
+            searchDialogFragment.setArguments(bundle1);
+            searchDialogFragment.show(fm, "search_dialog");
+        }
+
+
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         //  actionBarDrawerToggle.syncState();
+    }
+
+    public static Intent getStartIntent(Context context, String catlId, String cityId, String areaId) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra(WayaaakAPP.KEY_FLAG_SEARCH, true);
+        intent.putExtra(WayaaakAPP.KEY_CAT_ID, catlId);
+        intent.putExtra(WayaaakAPP.KEY_CITY_ID, cityId);
+        intent.putExtra(WayaaakAPP.KEY_AREA_ID, areaId);
+        Log.d("TAG", "getStartIntent: " + "cityId" + cityId + "areaId" + areaId + "catId" + catlId);
+        return intent;
     }
 
     @Override
@@ -254,4 +309,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    public interface OnAboutDataReceivedListener {
+        void onDataReceived(String catlId, String cityId, String areaId);
+    }
+
+    public void setAboutDataListener(OnAboutDataReceivedListener listener) {
+        this.mAboutDataListener = listener;
+    }
 }
