@@ -3,6 +3,7 @@ package com.ibtikar.apps.wayaaak;
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,13 +15,18 @@ import com.hosamazzam.volleysimple.VolleySimple;
 import com.ibtikar.apps.wayaaak.Adapters.SpinerAdapter;
 import com.ibtikar.apps.wayaaak.Models.LocationItem;
 import com.ibtikar.apps.wayaaak.Models.Response.LocationListResponse;
+import com.ibtikar.apps.wayaaak.Tools.SlideNavigation;
 import com.ibtikar.apps.wayaaak.Tools.WayaaakAPP;
+import com.yarolegovich.slidingrootnav.SlidingRootNav;
+import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 public class HomeActivity extends AppCompatActivity {
+    private SlidingRootNav slidingRootNav;
     Spinner citiesSpin, areaSpin, catSpin;
     Button btnSearch;
     VolleySimple volleySimple;
     String city, area, categ;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +37,18 @@ public class HomeActivity extends AppCompatActivity {
         catSpin = findViewById(R.id.cat_spin);
         btnSearch = findViewById(R.id.button_search);
         volleySimple = VolleySimple.getInstance(this);
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        slidingRootNav = new SlidingRootNavBuilder(this)
+                .withToolbarMenuToggle(toolbar)
+                .withMenuLayout(R.layout.screen_navigation)
+                .inject();
+        SlideNavigation slideNavigation = new SlideNavigation(R.id.main_fragment_container);
+        slideNavigation.initSlideMenu(HomeActivity.this, getSupportFragmentManager(), slidingRootNav);
+
+
         initCities(64);
         initCatSpin();
         btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -133,7 +151,7 @@ public class HomeActivity extends AppCompatActivity {
                     country1.setId(0);
                     country1.setName("الفئة");
                     response.getData().add(0, country1);
-                    SpinerAdapter spinerAdapter = new SpinerAdapter(HomeActivity.this, R.layout.spiner_item_layout, R.id.title, response.getData());
+                    SpinerAdapter spinerAdapter = new SpinerAdapter(HomeActivity.this, R.layout.spiner_item_layout, R.id.tv_item, response.getData());
                     catSpin.setAdapter(spinerAdapter);
                     catSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override

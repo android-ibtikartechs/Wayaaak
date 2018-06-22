@@ -1,20 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        releasePC {
-            keyAlias 'wayaaak'
-            keyPassword 'wayaaak'
-            storeFile file('E:/Projects/wayaaak.jks')
-            storePassword 'wayaaak'
-        }
-        releaseLabTop {
-            keyAlias 'wayaaak'
-            keyPassword 'wayaaak'
-            storeFile file('E:/Project_files/wayaaak/wayaaak.jks')
-            storePassword 'wayaaak'
-        }
-    }
+
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.ibtikar.apps.wayaaak"
@@ -24,17 +11,11 @@ android {
         versionName "1.0.0"
     }
     buildTypes {
-        releasePC {
-            signingConfig signingConfigs.releasePC
+        release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        releaseLaptop {
-            signingConfig signingConfigs.releaseLabTop
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+            }
 }
 
 dependencies {

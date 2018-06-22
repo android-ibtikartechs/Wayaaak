@@ -48,7 +48,7 @@ public class SplashActivity extends AppCompatActivity {
                 if (WayaaakAPP.isFirstOpen(SplashActivity.this)) {
                     startActivity(new Intent(SplashActivity.this, StartActivity.class));
                 } else {
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    startActivity(new Intent(SplashActivity.this, HomeActivity.class));
 
                 }
 

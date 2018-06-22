@@ -16,14 +16,14 @@
         android:checkable="true"
         android:icon="@drawable/ic_menu_cart_ico"
         android:title="@string/menu_cart" />
-    <item
-        android:id="@+id/menu_search"
-        android:checkable="true"
-        android:icon="@drawable/ic_action_search"
-        android:title="@string/menu_search" />
-    <item
-        android:id="@+id/menu_profile"
-        android:checkable="true"
-        android:icon="@drawable/ic_action_profile"
-        android:title="@string/menu_profile" />
-</menu>
+    <!--   <item
+           android:id="@+id/menu_search"
+           android:checkable="true"
+           android:icon="@drawable/ic_action_search"
+           android:title="@string/menu_search" /> -->
+       <item
+           android:id="@+id/menu_profile"
+           android:checkable="true"
+           android:icon="@drawable/ic_action_profile"
+           android:title="@string/menu_profile" />
+   </menu>

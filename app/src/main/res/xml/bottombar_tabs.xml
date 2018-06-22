@@ -20,16 +20,16 @@
         inActiveColor="#ffffff"
         title="@string/menu_cart" />
 
-    <tab
-        activeColor="#48cdff"
-        icon="@drawable/ic_action_search"
-        id="@+id/menu_search"
-        inActiveColor="#ffffff"
-        title="@string/menu_search" />
-    <tab
-        activeColor="#48cdff"
-        icon="@drawable/ic_action_profile"
-        id="@+id/menu_profile"
-        inActiveColor="#ffffff"
-        title="@string/menu_profile" />
-</tabs>
+    <!--  <tab
+          activeColor="#48cdff"
+          icon="@drawable/ic_action_search"
+          id="@+id/menu_search"
+          inActiveColor="#ffffff"
+          title="@string/menu_search" /> -->
+      <tab
+          activeColor="#48cdff"
+          icon="@drawable/ic_action_profile"
+          id="@+id/menu_profile"
+          inActiveColor="#ffffff"
+          title="@string/menu_profile" />
+  </tabs>

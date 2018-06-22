@@ -20,7 +20,7 @@ import com.yarolegovich.slidingrootnav.SlidingRootNav;
 
 public class SlideNavigation {
     int fragmnetholder;
-    TextView wishes, track, profile, exit;
+    TextView wishes, track, profile, exit, home;
 
 
     public SlideNavigation(int fragmnetholder) {
@@ -33,9 +33,20 @@ public class SlideNavigation {
         profile = activity.findViewById(R.id.profile_nav_txt);
         track = activity.findViewById(R.id.track_nav_txt);
         exit = activity.findViewById(R.id.exit_nav_txt);
+        home = activity.findViewById(R.id.home_nav_txt);
         if (!WayaaakAPP.getUserLoginState(activity)) {
             exit.setText("تسجيل الدخول");
         }
+        if (activity instanceof MainActivity)
+            home.setVisibility(View.GONE);
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                slidingRootNav.closeMenu();
+                activity.startActivity(MainActivity.getStartIntentTransition(activity));
+            }
+        });
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override

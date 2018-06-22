@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
       /*  getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_fragment_container, new Home_Fragment(), "Home_Fragment")
@@ -112,12 +115,7 @@ public class MainActivity extends AppCompatActivity {
                                     .commit();
                         }
                         break;
-                    case R.id.menu_search:
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.main_fragment_container, new Search_Fragment(), "Search_Fragment")
-                                .commit();
-                        break;
+
                     case R.id.menu_profile:
                         if (WayaaakAPP.getUserLoginState(MainActivity.this)) {
                             getSupportFragmentManager()
@@ -173,6 +171,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.search_item:
+                FragmentManager fm = getSupportFragmentManager();
+                SearchDialogFragment searchDialogFragment = new SearchDialogFragment();
+                searchDialogFragment.show(fm, "search_dialog");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -189,6 +207,12 @@ public class MainActivity extends AppCompatActivity {
         return intent;
     }
 
+    public static Intent getStartIntentTransition(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        return intent;
+    }
+
+
     @Override
     public void onResume() {
         super.onResume();
@@ -202,16 +226,20 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        slidingRootNav.isMenuOpened();
+        //super.onBackPressed();
+       slidingRootNav.isMenuOpened();
         if (slidingRootNav.isMenuOpened()) {
             slidingRootNav.closeMenu();
-        } else if (!WayaaakAPP.getUserLoginState(MainActivity.this)) {
+        }
+        /*
+        else if (!WayaaakAPP.getUserLoginState(MainActivity.this)) {
             if (bottomBar.getCurrentTabPosition() == 2 || bottomBar.getCurrentTabPosition() == 4) {
                 bottomBar.selectTabAtPosition(0);
             }
         } else if (bottomBar.getCurrentTabPosition() != 0) {
             bottomBar.selectTabAtPosition(0);
-        } else {
+        }*/
+        else {
             super.onBackPressed();
         }
     }
