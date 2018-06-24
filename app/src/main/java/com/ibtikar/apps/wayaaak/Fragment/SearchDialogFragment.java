@@ -2,25 +2,31 @@ package com.ibtikar.apps.wayaaak.Fragment;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hosamazzam.volleysimple.VolleySimple;
@@ -52,9 +58,10 @@ public class SearchDialogFragment  extends DialogFragment {
     List_Adapter listAdapter;
     LinearLayout empty_holder;
     EditText search_txt;
-    ImageView search_ico, filter_ico;
+    ImageView search_ico, filter_ico, btnClose;
     Map<String, String> filtermap = new HashMap<>();
     User user;
+
 
     @Nullable
     @Override
@@ -74,7 +81,32 @@ public class SearchDialogFragment  extends DialogFragment {
         initView(rootView);
         listener();
 
+        setupSearchBox();
+
         return rootView;
+    }
+
+    private void setupSearchBox() {
+        search_txt.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+
+                if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                        actionId == EditorInfo.IME_ACTION_DONE ||
+                        actionId == EditorInfo.IME_ACTION_NEXT ||
+                        keyEvent.getAction() == KeyEvent.ACTION_DOWN ||
+                        keyEvent.getAction() == KeyEvent.KEYCODE_ENTER)
+                {
+                    filtermap.put("keyword", search_txt.getText().toString());
+                    search(filtermap);
+                    hideKeyboard();
+                    return true;
+                }
+
+
+                return false;
+            }
+        });
     }
 
     @NonNull
@@ -97,6 +129,7 @@ public class SearchDialogFragment  extends DialogFragment {
         filter_ico = view.findViewById(R.id.filter_ico);
         search_txt = view.findViewById(R.id.search_txt);
         empty_holder = view.findViewById(R.id.no_item_holder);
+        btnClose = view.findViewById(R.id.im_btn_close);
         result_list.setLayoutManager(new GridLayoutManager(getContext(), 2));
         int resId = R.anim.layout_animation_fall_down;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getActivity(), resId);
@@ -110,6 +143,14 @@ public class SearchDialogFragment  extends DialogFragment {
             public void onClick(View v) {
                 filtermap.put("keyword", search_txt.getText().toString());
                 search(filtermap);
+                hideKeyboard();
+            }
+        });
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
             }
         });
 
@@ -249,7 +290,7 @@ public class SearchDialogFragment  extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Window window = getDialog().getWindow();
+       Window window = getDialog().getWindow();
         window.getDecorView().setOnTouchListener(new SwipeDismissTouchListener(window.getDecorView(), null, new SwipeDismissTouchListener.OnDismissCallback() {
 
             @Override
@@ -257,5 +298,12 @@ public class SearchDialogFragment  extends DialogFragment {
                 dismiss();
             }
         }));
+    }
+    public void hideKeyboard() {
+        View view = getActivity().findViewById(android.R.id.content);
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }

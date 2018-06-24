@@ -38,6 +38,7 @@ public class WayaaakAPP {
     public static String KEY_AREA_ID = "areaId";
     public static String KEY_CAT_ID = "catId";
     public static String KEY_FLAG_SEARCH = "key_flag_search";
+    public static String URL_AUOTHORITY = "wayaaak.ibtikarprojects.com";
 
     public static void changeLang(Context context, String lang) { // func to change lang
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);

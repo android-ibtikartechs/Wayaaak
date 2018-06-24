@@ -45,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
                 .withToolbarMenuToggle(toolbar)
                 .withMenuLayout(R.layout.screen_navigation)
                 .inject();
-        SlideNavigation slideNavigation = new SlideNavigation(R.id.main_fragment_container);
+        SlideNavigation slideNavigation = new SlideNavigation(R.id.main_content);
         slideNavigation.initSlideMenu(HomeActivity.this, getSupportFragmentManager(), slidingRootNav);
 
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
 
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
     >
     <ImageView
         android:layout_width="match_parent"
@@ -11,6 +11,7 @@
         android:background="#eeeeee"
         android:alpha="0.8"
         />
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -20,10 +21,11 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginBottom="10dp"
+        android:layout_height="50dp"
         app:cardBackgroundColor="@color/colorPrimary"
-        app:cardCornerRadius="0dp">
+        app:cardCornerRadius="0dp"
+        app:cardElevation="3dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,11 +33,18 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/im_btn_close"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/ic_action_close"
+                android:layout_gravity="center_vertical"
+                />
+
+            <ImageView
                 android:id="@+id/filter_ico"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/ic_action_filter" />
 
@@ -53,21 +62,26 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:maxLines="1"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
                 android:background="@android:color/transparent"
                 android:gravity="center|start"
                 android:hint="اسم المنتج" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/result_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layoutAnimation="@anim/layout_animation_fall_down"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="0dp"
+        app:layout_behavior="@string/bottom_sheet_behavior"
         />
 
     <include layout="@layout/no_item_layout" />
 
 </LinearLayout>
 
-</RelativeLayout>
+        </RelativeLayout>
+
