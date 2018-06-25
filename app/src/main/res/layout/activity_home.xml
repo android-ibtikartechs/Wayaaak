@@ -10,7 +10,7 @@
 
     <include
         android:id="@+id/include"
-        layout="@layout/toolbar_custom_layout" />
+        layout="@layout/toolbar_custom_layout_without_logo" />
 
     <include
         android:id="@+id/main"
@@ -33,19 +33,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo_header" />
 
+
     <RelativeLayout
         android:id="@+id/lout_cities_spinner"
         android:layout_width="0dp"
         android:layout_height="42dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/shape_rounded_spinner"
         android:orientation="horizontal"
         android:padding="5dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+        app:layout_constraintTop_toBottomOf="@+id/lout_location">
 
         <ImageView
             android:id="@+id/imageView3"
@@ -161,6 +162,33 @@
         app:layout_constraintStart_toStartOf="parent"
         android:stateListAnimator="@null"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
+
+    <LinearLayout
+        android:id="@+id/lout_location"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_location" />
+
+        <TextView
+            android:id="@+id/tv_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+
+            android:textColor="@color/gray1"
+
+            />
+
+    </LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>

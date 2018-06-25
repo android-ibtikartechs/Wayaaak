@@ -79,7 +79,9 @@
         app:layout_behavior="@string/bottom_sheet_behavior"
         />
 
-    <include layout="@layout/no_item_layout" />
+    <include layout="@layout/no_item_layout"
+        android:visibility="gone"
+        />
 
 </LinearLayout>
 
