@@ -37,8 +37,7 @@ public class ProductActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product);
-
+        setContentView(R.layout.activity_product_sec);
         volleySimple = VolleySimple.getInstance(this);
         user = WayaaakAPP.getUserLoginInfo(this);
 
@@ -60,9 +59,9 @@ public class ProductActivity extends AppCompatActivity {
         add_btn = findViewById(R.id.add_btn);
 
         qty_spin = findViewById(R.id.qty_spin);
-        qty_spin.setSelection(getIntent().getIntExtra("qty", 0), true);
-        View v = qty_spin.getSelectedView();
-        ((TextView) v).setTextColor(Color.WHITE);
+        //qty_spin.setSelection(getIntent().getIntExtra("qty", 0), true);
+        //View v = qty_spin.getSelectedView();
+        //((TextView) v).setTextColor(Color.WHITE);
 
         cart.setColorFilter(Color.parseColor("#333333"), PorterDuff.Mode.SRC_ATOP);
         WayaaakAPP.setBadgeCount(this, (LayerDrawable) cart.getDrawable(), String.valueOf(WayaaakAPP.getCartProducts(this).size()));
@@ -80,31 +79,36 @@ public class ProductActivity extends AppCompatActivity {
                     cat_name.setText(response.getProduct().getCategory());
                     title.setText(response.getProduct().getName());
                     if (!response.getProduct().getOprice().equals("0"))
-                        price.setText(response.getProduct().getPrice() + " EGP");
+                        price.setText(response.getProduct().getPrice() + "ج");
                     else
-                        price.setText(response.getProduct().getOprice() + " EGP");
+                        price.setText(response.getProduct().getOprice() + "ج");
 
                     Glide.with(ProductActivity.this).load(response.getProduct().getImage()).asBitmap().into(photo);
                     sellername.setText(sellername.getText() + response.getProduct().getSellername());
                     details.setText(details.getText() + response.getProduct().getDetails());
-                    if (response.getProduct().getIsfavourite() != null) {
+                    if (response.getProduct().getIsfavourite() == null) {
+                        response.getProduct().setIsfavourite("no");
                         if (response.getProduct().getIsfavourite().equals("yes")) {
+                            Toast.makeText(ProductActivity.this, "like", Toast.LENGTH_SHORT).show();
                             like.setImageResource(R.drawable.ic_action_liked);
                             like.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    removeFromFav(like, response.getProduct().getId());
+                                    //removeFromFav(like, response.getProduct().getId());
                                     like.setImageResource(R.drawable.ic_action_unliked);
+
                                     response.getProduct().setIsfavourite("no");
                                 }
                             });
                         } else {
+                            Toast.makeText(ProductActivity.this, "like", Toast.LENGTH_SHORT).show();
                             like.setImageResource(R.drawable.ic_action_unliked);
                             like.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    addToFav(like, response.getProduct().getId());
+                                    //addToFav(like, response.getProduct().getId());
                                     like.setImageResource(R.drawable.ic_action_liked);
+
                                     response.getProduct().setIsfavourite("yes");
                                 }
                             });
@@ -166,19 +170,19 @@ public class ProductActivity extends AppCompatActivity {
         cartitem.setName(response.getProduct().getName());
         if (response.getProduct().getIsfavourite() != null)
             cartitem.setFavourite(response.getProduct().getIsfavourite().equals("yes"));
-        cartitem.setQty(qty_spin.getSelectedItemPosition());
+        //cartitem.setQty(qty_spin.getSelectedItemPosition());
         cartitem.setPrice(Integer.valueOf(response.getProduct().getOprice().equals("0") ? response.getProduct().getPrice() : response.getProduct().getOprice()));
         cartitem.setPhoto(response.getProduct().getImage());
         cartitem.setTotal(cartitem.getQty() * cartitem.getPrice());
         WayaaakAPP.addToCart(this, cartitem);
         Toast.makeText(this, "تم الاضافة للسلة", Toast.LENGTH_LONG).show();
-        qty_spin.setSelection(0);
+        //qty_spin.setSelection(0);
         WayaaakAPP.setBadgeCount(this, (LayerDrawable) cart.getDrawable(), String.valueOf(WayaaakAPP.getCartProducts(this).size()));
 
     }
 
     public void listener() {
-        qty_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        /*qty_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -190,7 +194,7 @@ public class ProductActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
+*/
         cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -205,7 +209,7 @@ public class ProductActivity extends AppCompatActivity {
                         .commit();
             }
         });
-
+/*
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -215,7 +219,7 @@ public class ProductActivity extends AppCompatActivity {
                     Toast.makeText(ProductActivity.this, "اختر الكمية اولا", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        }); */
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
