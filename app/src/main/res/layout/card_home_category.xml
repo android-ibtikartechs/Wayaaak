@@ -9,7 +9,7 @@
         android:id="@+id/cat_home_big_container"
         android:layout_width="match_parent"
         android:layout_height="205dp"
-        android:visibility="gone">
+        >
 
         <ImageView
             android:id="@+id/cat_home_big_img"
@@ -44,7 +44,7 @@
         android:id="@+id/cat_home_small_container"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:visibility="gone">
+        >
 
         <ImageView
             android:id="@+id/cat_home_small_img"

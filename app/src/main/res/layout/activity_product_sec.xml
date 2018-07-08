@@ -50,238 +50,288 @@
         android:layout_marginTop="50dp"
         android:background="#ffffff">
 
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.4" />
-
-    <ImageView
-        android:id="@+id/product_img"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/img" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/product_img"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/product_img">
-
-        <TextView
-            android:id="@+id/product_title_txt"
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text=" زهور هالفيتي"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/product_seller_name_txt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="اسم البائع" />
-
-        <TextView
-            android:id="@+id/product_price_txt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="200 ج"
-            android:textSize="24sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            >
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.4" />
 
             <ImageView
-                android:id="@+id/product_like_img"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                app:srcCompat="@drawable/ic_action_unliked" />
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:id="@+id/product_img"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                app:srcCompat="@drawable/ic_share" />
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/img" />
 
-            <RatingBar
-                android:id="@+id/lawyer_rate_bar"
-                style="@style/customRatingBar"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/product_img"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintTop_toTopOf="@+id/product_img">
+
+                <TextView
+                    android:id="@+id/product_title_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text=" زهور هالفيتي"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/product_seller_name_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="اسم البائع" />
+
+                <TextView
+                    android:id="@+id/product_price_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="200 ج"
+                    android:textSize="24sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/product_like_img"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        app:srcCompat="@drawable/ic_action_unliked" />
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="8dp"
+                        app:srcCompat="@drawable/ic_share" />
+
+                    <RatingBar
+                        android:id="@+id/lawyer_rate_bar"
+                        style="@style/customRatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:numStars="5"
+                        android:rating="3" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/details_intro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="4"
+                    android:text="ذل العلماء سنوات طويلة وجهودا مضنية لتخليق الورد الأسود، إلا أن الطبيعة سبقتهم في هذا المجال، ذلك أن الورد الأسود موجود بصفة حصرية في بلدة تركية، لكن المفارقة أن ما أنعمت به الأرض على هذه القرية يعتبر – في نظر السكان – مجلبة للشؤم من خلفية لا تمت إلى العلم بصلة، وهي نتاج ثقافة شعبية تبقى على الدوام محكومة بأمور متخيّلة، لا سيما وأن اللون الأسود مرتبط بالحزن وفقدان الأحبة
+الورود السوداء في قرية هالفيتي التركية… جمال نادر مهدد بالانقراض" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:rating="3"
-                android:numStars="5"
-                />
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_rounded_gray"
+                    android:gravity="center"
 
-        <TextView
-            android:id="@+id/details_intro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ذل العلماء سنوات طويلة وجهودا مضنية لتخليق الورد الأسود، إلا أن الطبيعة سبقتهم في هذا المجال، ذلك أن الورد الأسود موجود بصفة حصرية في بلدة تركية، لكن المفارقة أن ما أنعمت به الأرض على هذه القرية يعتبر – في نظر السكان – مجلبة للشؤم من خلفية لا تمت إلى العلم بصلة، وهي نتاج ثقافة شعبية تبقى على الدوام محكومة بأمور متخيّلة، لا سيما وأن اللون الأسود مرتبط بالحزن وفقدان الأحبة
-الورود السوداء في قرية هالفيتي التركية… جمال نادر مهدد بالانقراض"
-            android:maxLines="4"
-            android:ellipsize="end"
-            />
-    </LinearLayout>
+                    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="طول"
+                        android:textSize="20sp" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:background="@drawable/shape_rounded_gray"
-            android:gravity="center"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="18cm"
+                        android:textColor="@color/gray1"
+                        android:textSize="12sp" />
 
-            android:orientation="vertical">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_rounded_gray"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="عرض"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="14cm"
+                        android:textColor="@color/gray1"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_rounded_gray"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ارتفاع"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="24cm"
+                        android:textColor="@color/gray1"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+            </LinearLayout>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/product_details_txt"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="طول"
-                android:textSize="20sp" />
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="تعتبر الورود السوداء فصيلة نادرة على مستوى العالم، تنمو بشكل حصري في قرية هالفيتي التركية، بالرغم من أنَّ علماء تمكّنوا من تخليق نوع من الورد الأسود، لكن تبقى ورورد قرية هالفيتي من صنع الطبيعة وأحد إبداعاتها.وتُعدّ ورودًا عادية في شكلها تمامًا كأي نوع آخر من الورد المعروف، ولكنها مختلفة عن غيرها بلونها الغريب والمميز، ولم يشفع لها جمالها النادر ليصفها الكثيرون بأنها نذير شؤم ونحس."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/lout_footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/product_details_txt"
+                android:visibility="gone"
+                >
 
             <TextView
+                android:id="@+id/tv_cat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="18cm"
-                android:textColor="@color/gray1"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="8dp"
-            android:layout_weight="1"
-            android:background="@drawable/shape_rounded_gray"
-            android:gravity="center"
-            android:orientation="vertical">
+                android:layout_marginStart="8dp"
+                android:text="منتجات أخرى"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/tv_get_all_products"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="عرض"
-                android:textSize="20sp" />
+                android:layout_marginEnd="8dp"
+                android:text="الكل"
+                android:textColor="@color/tw__composer_blue"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_products"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="14cm"
-                android:textColor="@color/gray1"
-                android:textSize="12sp" />
-        </LinearLayout>
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/space"
+                app:layout_constraintVertical_bias="0.0" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="8dp"
-            android:layout_weight="1"
-            android:background="@drawable/shape_rounded_gray"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ارتفاع"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="24cm"
-                android:textColor="@color/gray1"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/product_details_txt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="تعتبر الورود السوداء فصيلة نادرة على مستوى العالم، تنمو بشكل حصري في قرية هالفيتي التركية، بالرغم من أنَّ علماء تمكّنوا من تخليق نوع من الورد الأسود، لكن تبقى ورورد قرية هالفيتي من صنع الطبيعة وأحد إبداعاتها.وتُعدّ ورودًا عادية في شكلها تمامًا كأي نوع آخر من الورد المعروف، ولكنها مختلفة عن غيرها بلونها الغريب والمميز، ولم يشفع لها جمالها النادر ليصفها الكثيرون بأنها نذير شؤم ونحس."
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-
-</android.support.constraint.ConstraintLayout>
+            <LinearLayout
+                android:id="@+id/space"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:background="@color/gray1"
+                android:alpha="0.4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cat"/>
+            </android.support.constraint.ConstraintLayout>
+        </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:background="#ffffff"
-        >
+        android:background="#ffffff">
 
         <TextView
             android:id="@+id/add_btn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_rounded_blue_slide"
+            android:gravity="center"
             android:text="اضف لمشترياتى"
             android:textColor="@color/colorPrimary"
-            android:gravity="center"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:background="@drawable/shape_rounded_blue_slide"
-            />
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            ></LinearLayout>
+            android:layout_weight="0.5"></LinearLayout>
 
     </LinearLayout>
 

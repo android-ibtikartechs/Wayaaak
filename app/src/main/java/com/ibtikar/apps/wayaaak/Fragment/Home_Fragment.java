@@ -2,13 +2,16 @@ package com.ibtikar.apps.wayaaak.Fragment;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -38,6 +41,7 @@ public class Home_Fragment extends Fragment {
     Category_Adapter categoryAdapter;
     int page_position = 0, slider_size = 0;
     Timer timer;
+    CountDownTimer cdt;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,9 +52,27 @@ public class Home_Fragment extends Fragment {
         View rootview = inflater.inflate(R.layout.fragment_home, container, false);
         volleySimple = VolleySimple.getInstance(getContext());
         categorylist = rootview.findViewById(R.id.cat_home_list);
-        categorylist.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        //categorylist.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        categorylist.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL, false));
         initView(rootview);
         init();
+
+        images_slider.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                //cancelSlidingforSomeTime();
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         return rootview;
     }
 
@@ -85,9 +107,14 @@ public class Home_Fragment extends Fragment {
         }, progressDialog);
     }
 
+
+
     public void initSlider(List<Product> items) {
         sliderPagerAdapter = new Slider_Adapter(getActivity(), items);
         images_slider.setAdapter(sliderPagerAdapter);
+        images_slider.setClipToPadding(false);
+        images_slider.setPadding(60, 0, 60, 0);
+        images_slider.setPageMargin(24);
         pages_dots.setupWithViewPager(images_slider);
         slider_size = items.size();
 
@@ -117,12 +144,51 @@ public class Home_Fragment extends Fragment {
         }, 500, 3000);
     }
 
+    private void cancelSlidingforSomeTime()
+    {
+        timer.cancel();
+        if (cdt != null)
+            cdt.cancel();
+        cdt = new CountDownTimer(5000,30) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                scheduleSlider();
+            }
+        };
+    }
+
 
     @Override
     public void onPause() {
         timer.cancel();
         super.onPause();
     }
+
+    private View.OnTouchListener getButtonTouchListener() {
+        return new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        return true;
+                    case MotionEvent.ACTION_MOVE:
+                        //cancelSlidingforSomeTime();
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        //Release logic here
+                        return true;
+                }
+
+                return false;
+            }
+        };
+    }
+
 
 }
 

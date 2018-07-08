@@ -20,7 +20,7 @@ import com.ibtikar.apps.wayaaak.R;
 
 import java.util.List;
 
-public class Category_Adapter extends RecyclerView.Adapter<Category_Adapter.MyViewHolder> {
+public class Category_Adapter extends RecyclerView.Adapter<Category_Adapter.NewViewHolder> {
     Context context;
     List<HomeCategory> categories;
     FragmentManager fragmentManager;
@@ -33,24 +33,24 @@ public class Category_Adapter extends RecyclerView.Adapter<Category_Adapter.MyVi
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_home_category, parent, false);
-        return new MyViewHolder(view);
+    public NewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_card_home_category, parent, false);
+        return new NewViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
-        if (position % 3 == 0) {
+    public void onBindViewHolder(@NonNull NewViewHolder holder, final int position) {
+        //if (position % 3 == 0) {
             holder.big_container.setVisibility(View.VISIBLE);
-            holder.small_container.setVisibility(View.GONE);
+           // holder.small_container.setVisibility(View.GONE);
             holder.big_txt.setText(categories.get(position).getParentcategory_name() + " - " + categories.get(position).getName());
             Glide.with(context).load(categories.get(position).getImage()).asBitmap().into(holder.big_img);
-        } else {
+        /*} else {
             holder.small_container.setVisibility(View.VISIBLE);
             holder.big_container.setVisibility(View.GONE);
             holder.small_txt.setText(categories.get(position).getParentcategory_name() + " - " + categories.get(position).getName());
             Glide.with(context).load(categories.get(position).getImage()).asBitmap().into(holder.small_img);
-        }
+        } */
 
         holder.big_container.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,12 +58,12 @@ public class Category_Adapter extends RecyclerView.Adapter<Category_Adapter.MyVi
                 open(position);
             }
         });
-        holder.small_container.setOnClickListener(new View.OnClickListener() {
+    /*    holder.small_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 open(position);
             }
-        });
+        });*/
 
     }
 
@@ -102,6 +102,19 @@ public class Category_Adapter extends RecyclerView.Adapter<Category_Adapter.MyVi
             small_container = itemView.findViewById(R.id.cat_home_small_container);
             small_img = itemView.findViewById(R.id.cat_home_small_img);
             small_txt = itemView.findViewById(R.id.cat_home_small_txt);
+        }
+    }
+
+    public class NewViewHolder extends RecyclerView.ViewHolder {
+        RelativeLayout big_container;
+        TextView big_txt;
+        ImageView big_img;
+
+        public NewViewHolder(View itemView) {
+            super(itemView);
+            big_container = itemView.findViewById(R.id.cat_home_big_container);
+            big_img = itemView.findViewById(R.id.cat_home_big_img);
+            big_txt = itemView.findViewById(R.id.cat_home_big_txt);
         }
     }
 }

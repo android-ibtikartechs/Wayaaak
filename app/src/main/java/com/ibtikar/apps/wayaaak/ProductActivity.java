@@ -5,7 +5,10 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -16,9 +19,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.hosamazzam.volleysimple.VolleySimple;
+import com.ibtikar.apps.wayaaak.Adapters.SuggestedProductsAdapter;
 import com.ibtikar.apps.wayaaak.Fragment.Cart_Fragment;
 import com.ibtikar.apps.wayaaak.Models.Cart;
 import com.ibtikar.apps.wayaaak.Models.Response.ProductResponse;
+import com.ibtikar.apps.wayaaak.Models.Response.SuggestedItemsResponse;
 import com.ibtikar.apps.wayaaak.Models.Status;
 import com.ibtikar.apps.wayaaak.Models.User;
 import com.ibtikar.apps.wayaaak.Tools.WayaaakAPP;
@@ -29,10 +34,16 @@ import java.util.Map;
 public class ProductActivity extends AppCompatActivity {
     TextView title, price, sellername, details, cat_name, add_btn;
     ImageView photo, like, cart, back;
+    ConstraintLayout loutFooter;
     VolleySimple volleySimple;
     Spinner qty_spin;
     User user;
+    boolean liked;
     ProductResponse response;
+
+
+    RecyclerView rvSuggestedList;
+    SuggestedProductsAdapter categoryAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +55,7 @@ public class ProductActivity extends AppCompatActivity {
         initView();
         init();
         listener();
+
     }
 
     public void initView() {
@@ -57,8 +69,10 @@ public class ProductActivity extends AppCompatActivity {
         back = findViewById(R.id.toolbar_back_ico);
         cart = findViewById(R.id.product_cart_img);
         add_btn = findViewById(R.id.add_btn);
-
+        loutFooter = findViewById(R.id.lout_footer);
         qty_spin = findViewById(R.id.qty_spin);
+        rvSuggestedList = findViewById(R.id.rv_products);
+        rvSuggestedList.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false));
         //qty_spin.setSelection(getIntent().getIntExtra("qty", 0), true);
         //View v = qty_spin.getSelectedView();
         //((TextView) v).setTextColor(Color.WHITE);
@@ -77,6 +91,7 @@ public class ProductActivity extends AppCompatActivity {
                 response = new Gson().fromJson(s, ProductResponse.class);
                 if (response.getStatus().equals("OK")) {
                     cat_name.setText(response.getProduct().getCategory());
+
                     title.setText(response.getProduct().getName());
                     if (!response.getProduct().getOprice().equals("0"))
                         price.setText(response.getProduct().getPrice() + "ج");
@@ -86,34 +101,39 @@ public class ProductActivity extends AppCompatActivity {
                     Glide.with(ProductActivity.this).load(response.getProduct().getImage()).asBitmap().into(photo);
                     sellername.setText(sellername.getText() + response.getProduct().getSellername());
                     details.setText(details.getText() + response.getProduct().getDetails());
-                    if (response.getProduct().getIsfavourite() == null) {
-                        response.getProduct().setIsfavourite("no");
-                        if (response.getProduct().getIsfavourite().equals("yes")) {
-                            Toast.makeText(ProductActivity.this, "like", Toast.LENGTH_SHORT).show();
+
+                    if (response.getProduct().getIsfavourite() != null) {
+                        if (response.getProduct().getIsfavourite()) {
                             like.setImageResource(R.drawable.ic_action_liked);
-                            like.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    //removeFromFav(like, response.getProduct().getId());
-                                    like.setImageResource(R.drawable.ic_action_unliked);
-
-                                    response.getProduct().setIsfavourite("no");
-                                }
-                            });
+                            liked = true;
                         } else {
-                            Toast.makeText(ProductActivity.this, "like", Toast.LENGTH_SHORT).show();
                             like.setImageResource(R.drawable.ic_action_unliked);
-                            like.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    //addToFav(like, response.getProduct().getId());
-                                    like.setImageResource(R.drawable.ic_action_liked);
-
-                                    response.getProduct().setIsfavourite("yes");
-                                }
-                            });
+                            liked = false;
                         }
                     }
+
+                    like.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (liked)
+                            {
+                                removeFromFav(like, response.getProduct().getId());
+                                like.setImageResource(R.drawable.ic_action_unliked);
+                                response.getProduct().setIsfavourite(false);
+                                liked = false;
+                            }
+                            else
+                            {
+                                addToFav(like, response.getProduct().getId());
+                                like.setImageResource(R.drawable.ic_action_liked);
+                                response.getProduct().setIsfavourite(true);
+                                liked = true;
+                            }
+                        }
+                    });
+
+
+                    getSuggestedProducts(response.getProduct().getCategoryid());
                 }
             }
 
@@ -123,6 +143,35 @@ public class ProductActivity extends AppCompatActivity {
             }
         }, progressDialog);
     }
+
+
+    private void  getSuggestedProducts(String catName)
+    {
+        Map<String, String> map = new HashMap<>();
+        map.put("category", catName);
+        volleySimple.asyncStringPost(WayaaakAPP.BASE_URL + "categoryproducts_rand", map, new VolleySimple.NetworkListener<String>() {
+            @Override
+            public void onResponse(String s) {
+                SuggestedItemsResponse response = new Gson().fromJson(s, SuggestedItemsResponse.class);
+                if (response.isStatus())
+                {
+                    categoryAdapter = new SuggestedProductsAdapter(ProductActivity.this,response.getProducts());
+                    rvSuggestedList.setAdapter(categoryAdapter);
+                }
+
+                loutFooter.setVisibility(View.VISIBLE);
+
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+
+            }
+        });
+
+
+    }
+
 
     public void addToFav(final ImageView img, int id) {
         Map<String, String> map = new HashMap<>();
@@ -139,7 +188,9 @@ public class ProductActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Exception e) {
-
+                like.setImageResource(R.drawable.ic_action_unliked);
+                response.getProduct().setIsfavourite(false);
+                liked = false;
             }
         });
     }
@@ -159,10 +210,17 @@ public class ProductActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Exception e) {
-
+                like.setImageResource(R.drawable.ic_action_liked);
+                response.getProduct().setIsfavourite(true);
+                liked = true;
             }
         });
     }
+
+
+
+
+
 
     public void addToCart() {
         Cart cartitem = new Cart();

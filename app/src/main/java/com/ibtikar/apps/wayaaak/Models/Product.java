@@ -4,11 +4,20 @@ import java.util.List;
 
 public class Product {
     int id;
-    String image, name, sellerid, sellername, category, intro, details, price, oprice, available_from, available_to, isfavourite;
+    String image, name, sellerid, sellername, category, intro, details, price, oprice, available_from, available_to,categoryid;
+    Boolean isfavourite;
     List<Gallery> Gallery;
 
     public int getId() {
         return id;
+    }
+
+    public String getCategoryid() {
+        return categoryid;
+    }
+
+    public void setCategoryid(String categoryid) {
+        this.categoryid = categoryid;
     }
 
     public void setId(int id) {
@@ -111,11 +120,11 @@ public class Product {
         Gallery = gallery;
     }
 
-    public String getIsfavourite() {
+    public Boolean getIsfavourite() {
         return isfavourite;
     }
 
-    public void setIsfavourite(String isfavourite) {
+    public void setIsfavourite(Boolean isfavourite) {
         this.isfavourite = isfavourite;
     }
 }

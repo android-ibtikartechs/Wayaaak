@@ -77,14 +77,14 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.MyViewHolder
         if (user != null) {
             if (products.get(position).getIsfavourite() != null)
             {
-                if (products.get(position).getIsfavourite().equals("yes")) {
+                if (products.get(position).getIsfavourite()) {
                     holder.like.setImageResource(R.drawable.ic_action_liked);
                     holder.like.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             removeFromFav(holder.like, position);
                             holder.like.setImageResource(R.drawable.ic_action_unliked);
-                            products.get(position).setIsfavourite("no");
+                            products.get(position).setIsfavourite(false);
                         }
                     });
                 } else {
@@ -94,7 +94,7 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.MyViewHolder
                         public void onClick(View v) {
                             addToFav(holder.like, position);
                             holder.like.setImageResource(R.drawable.ic_action_liked);
-                            products.get(position).setIsfavourite("yes");
+                            products.get(position).setIsfavourite(true);
                         }
                     });
                 }

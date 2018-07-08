@@ -265,11 +265,13 @@ public class SearchDialogFragment  extends DialogFragment {
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
 
+               // Log.d("TAG", "onResponse: " + response.body().string());
                 ListResponse response1 = new Gson().fromJson(response.body().string(), ListResponse.class);
                 if (response1.getStatus().equals("OK")) {
                     //Log.d("TAG", "onResponse: " + response.body().string());
 
                     listAdapter = new List_Adapter(getContext(), getFragmentManager(), response1.getProducts());
+                    Log.d("TAG", "onResponse: " + response1.getProducts().get(0).getIsfavourite());
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
