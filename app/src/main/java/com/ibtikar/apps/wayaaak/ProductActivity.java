@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -33,11 +34,12 @@ import java.util.Map;
 
 public class ProductActivity extends AppCompatActivity {
     TextView title, price, sellername, details, cat_name, add_btn;
-    ImageView photo, like, cart, back;
+    ImageView photo, like, cart, back, btnIncrease, btnDecrease;
     ConstraintLayout loutFooter;
     VolleySimple volleySimple;
     Spinner qty_spin;
     User user;
+    EditText etQuantity;
     boolean liked;
     ProductResponse response;
 
@@ -72,6 +74,9 @@ public class ProductActivity extends AppCompatActivity {
         loutFooter = findViewById(R.id.lout_footer);
         qty_spin = findViewById(R.id.qty_spin);
         rvSuggestedList = findViewById(R.id.rv_products);
+        etQuantity = findViewById(R.id.et_quantity);
+        btnIncrease = findViewById(R.id.im_btn_increase_quantity);
+        btnDecrease = findViewById(R.id.im_btn_decrease_quantity);
         rvSuggestedList.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false));
         //qty_spin.setSelection(getIntent().getIntExtra("qty", 0), true);
         //View v = qty_spin.getSelectedView();
@@ -228,7 +233,7 @@ public class ProductActivity extends AppCompatActivity {
         cartitem.setName(response.getProduct().getName());
         if (response.getProduct().getIsfavourite() != null)
             cartitem.setFavourite(response.getProduct().getIsfavourite().equals("yes"));
-        //cartitem.setQty(qty_spin.getSelectedItemPosition());
+        cartitem.setQty(Integer.valueOf(etQuantity.getText().toString()));
         cartitem.setPrice(Integer.valueOf(response.getProduct().getOprice().equals("0") ? response.getProduct().getPrice() : response.getProduct().getOprice()));
         cartitem.setPhoto(response.getProduct().getImage());
         cartitem.setTotal(cartitem.getQty() * cartitem.getPrice());
@@ -267,17 +272,55 @@ public class ProductActivity extends AppCompatActivity {
                         .commit();
             }
         });
-/*
+
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (qty_spin.getSelectedItemPosition() != 0) {
+
+
+                if (Integer.valueOf(etQuantity.getText().toString()) >= 10)
+                {
+                    etQuantity.setText("10");
+                    Toast.makeText(ProductActivity.this, "الحد الأقصى للكمية 10 وحدات", Toast.LENGTH_SHORT).show();
+                }
+
+
+                else if (!(etQuantity.getText().toString().isEmpty() || etQuantity.getText().toString().equals("0")) ) {
                     addToCart();
-                } else {
+                }
+
+
+                else {
                     Toast.makeText(ProductActivity.this, "اختر الكمية اولا", Toast.LENGTH_SHORT).show();
                 }
             }
-        }); */
+        });
+
+        btnDecrease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (etQuantity.getText().toString().isEmpty())
+                    etQuantity.setText("1");
+                else if (!etQuantity.getText().toString().equals("0"))
+                    etQuantity.setText(String.valueOf(Integer.valueOf(etQuantity.getText().toString())-1));
+
+            }
+        });
+
+        btnIncrease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (etQuantity.getText().toString().isEmpty())
+                    etQuantity.setText("1");
+                else if (Integer.valueOf(etQuantity.getText().toString()) >= 10)
+                {
+                    etQuantity.setText("10");
+                    Toast.makeText(ProductActivity.this, "الحد الأقصى للكمية 10 وحدات", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    etQuantity.setText(String.valueOf(Integer.valueOf(etQuantity.getText().toString())+1));
+            }
+        });
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -288,6 +331,5 @@ public class ProductActivity extends AppCompatActivity {
     }
 
     public void dymmyClick(View view) {
-
     }
 }

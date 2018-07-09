@@ -77,26 +77,41 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.MyViewHolder
         if (user != null) {
             if (products.get(position).getIsfavourite() != null)
             {
+                holder.like.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (products.get(position).getIsfavourite()) {
+                            removeFromFav(holder.like, position);
+                            holder.like.setImageResource(R.drawable.ic_action_unliked);
+                            products.get(position).setIsfavourite(false);
+                        }
+                        else {
+                            addToFav(holder.like, position);
+                            holder.like.setImageResource(R.drawable.ic_action_liked);
+                            products.get(position).setIsfavourite(true);
+                        }
+                    }
+                });
                 if (products.get(position).getIsfavourite()) {
                     holder.like.setImageResource(R.drawable.ic_action_liked);
-                    holder.like.setOnClickListener(new View.OnClickListener() {
+                  /*  holder.like.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             removeFromFav(holder.like, position);
                             holder.like.setImageResource(R.drawable.ic_action_unliked);
                             products.get(position).setIsfavourite(false);
                         }
-                    });
+                    });*/
                 } else {
                     holder.like.setImageResource(R.drawable.ic_action_unliked);
-                    holder.like.setOnClickListener(new View.OnClickListener() {
+                    /*holder.like.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             addToFav(holder.like, position);
                             holder.like.setImageResource(R.drawable.ic_action_liked);
                             products.get(position).setIsfavourite(true);
                         }
-                    });
+                    });*/
                 }
         }
         }

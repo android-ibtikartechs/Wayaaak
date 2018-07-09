@@ -45,6 +45,7 @@ public class SlideNavigation {
             public void onClick(View view) {
                 slidingRootNav.closeMenu();
                 activity.startActivity(MainActivity.getStartIntentTransition(activity));
+                activity.finish();
             }
         });
 

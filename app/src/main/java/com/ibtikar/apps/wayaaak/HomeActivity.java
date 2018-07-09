@@ -96,6 +96,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(MainActivity.getStartIntent(HomeActivity.this, categ,city,area));
+                finish();
 
             }
         });

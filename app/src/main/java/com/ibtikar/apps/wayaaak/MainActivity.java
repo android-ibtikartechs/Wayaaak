@@ -231,14 +231,18 @@ public class MainActivity extends AppCompatActivity {
         if (slidingRootNav.isMenuOpened()) {
             slidingRootNav.closeMenu();
         }
-        /*
+
+
+
         else if (!WayaaakAPP.getUserLoginState(MainActivity.this)) {
             if (bottomBar.getCurrentTabPosition() == 2 || bottomBar.getCurrentTabPosition() == 4) {
                 bottomBar.selectTabAtPosition(0);
             }
         } else if (bottomBar.getCurrentTabPosition() != 0) {
             bottomBar.selectTabAtPosition(0);
-        }*/
+        }
+
+
         else {
             super.onBackPressed();
         }
