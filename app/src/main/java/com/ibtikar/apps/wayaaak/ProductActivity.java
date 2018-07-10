@@ -2,6 +2,7 @@ package com.ibtikar.apps.wayaaak;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -33,7 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ProductActivity extends AppCompatActivity {
-    TextView title, price, sellername, details, cat_name, add_btn;
+    TextView title, price, sellername, details, cat_name, add_btn, oPrice;
     ImageView photo, like, cart, back, btnIncrease, btnDecrease;
     ConstraintLayout loutFooter;
     VolleySimple volleySimple;
@@ -64,6 +66,7 @@ public class ProductActivity extends AppCompatActivity {
         cat_name = findViewById(R.id.product_cat_name_txt);
         title = findViewById(R.id.product_title_txt);
         price = findViewById(R.id.product_price_txt);
+        oPrice = findViewById(R.id.product_offer_price_txt);
         sellername = findViewById(R.id.product_seller_name_txt);
         details = findViewById(R.id.product_details_txt);
         photo = findViewById(R.id.product_img);
@@ -98,6 +101,24 @@ public class ProductActivity extends AppCompatActivity {
                     cat_name.setText(response.getProduct().getCategory());
 
                     title.setText(response.getProduct().getName());
+
+
+                    if(response.getProduct().getOprice().isEmpty() || response.getProduct().getOprice().equals("0"))
+                    {
+                        oPrice.setText(response.getProduct().getPrice());
+                        price.setVisibility(View.GONE);
+                    }
+                    else
+                    {
+                        price.setText(response.getProduct().getPrice() );
+                        Log.d("TAG", "onBindViewHolder: " + response.getProduct().getOprice());
+                        //} else {
+                        oPrice.setText(response.getProduct().getOprice()  );
+                        // holder.price.setText(products.get(position).getOprice()  );
+                        price.setPaintFlags(price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    }
+
+
                     if (!response.getProduct().getOprice().equals("0"))
                         price.setText(response.getProduct().getPrice() + "ج");
                     else
@@ -234,7 +255,7 @@ public class ProductActivity extends AppCompatActivity {
         if (response.getProduct().getIsfavourite() != null)
             cartitem.setFavourite(response.getProduct().getIsfavourite().equals("yes"));
         cartitem.setQty(Integer.valueOf(etQuantity.getText().toString()));
-        cartitem.setPrice(Integer.valueOf(response.getProduct().getOprice().equals("0") ? response.getProduct().getPrice() : response.getProduct().getOprice()));
+        cartitem.setPrice(Integer.valueOf(response.getProduct().getOprice().equals("0")  ? response.getProduct().getPrice() : response.getProduct().getOprice()));
         cartitem.setPhoto(response.getProduct().getImage());
         cartitem.setTotal(cartitem.getQty() * cartitem.getPrice());
         WayaaakAPP.addToCart(this, cartitem);

@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,13 +57,24 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        if (products.get(position).getOprice().equals("0")) {
-            holder.price.setText(products.get(position).getPrice() + " EGP");
-        } else {
-            holder.oprice.setText(products.get(position).getPrice() + " ");
-            holder.price.setText(products.get(position).getOprice() + " EGP");
-            holder.oprice.setPaintFlags(holder.oprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+       // if (products.get(position).getOprice().equals("0")) {
+
+        if(products.get(position).getOprice().isEmpty() || products.get(position).getOprice().equals("0"))
+        {
+            holder.oprice.setText(products.get(position).getPrice());
+            holder.price.setVisibility(View.GONE);
         }
+        else
+        {
+            holder.price.setText(products.get(position).getPrice() );
+            Log.d("TAG", "onBindViewHolder: " + products.get(position).getOprice());
+            //} else {
+            holder.oprice.setText(products.get(position).getOprice()  );
+            // holder.price.setText(products.get(position).getOprice()  );
+            holder.price.setPaintFlags(holder.price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+
+       // }
         holder.title.setText(products.get(position).getName());
         Glide.with(context).load(products.get(position).getImage()).asBitmap().into(holder.photo);
         holder.container.setOnClickListener(new View.OnClickListener() {
