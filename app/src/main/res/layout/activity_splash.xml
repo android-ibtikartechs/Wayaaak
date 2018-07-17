@@ -3,12 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash"
+    android:background="@color/tw__composer_white"
     android:gravity="center"
     tools:context="com.ibtikar.apps.wayaaak.SplashActivity">
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/logo_splash" />
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/main_progress"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/splash_anim"
+        android:layout_gravity="center"
+        />
 </LinearLayout>
