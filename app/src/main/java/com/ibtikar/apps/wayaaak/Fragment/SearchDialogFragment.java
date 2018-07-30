@@ -271,7 +271,7 @@ public class SearchDialogFragment  extends DialogFragment {
                     //Log.d("TAG", "onResponse: " + response.body().string());
 
                     listAdapter = new List_Adapter(getContext(), getFragmentManager(), response1.getProducts());
-                    Log.d("TAG", "onResponse: " + response1.getProducts().get(0).getIsfavourite());
+//                    Log.d("TAG", "onResponse: " + response1.getProducts().get(0).getIsfavourite());
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

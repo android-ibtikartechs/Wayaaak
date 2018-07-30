@@ -234,11 +234,15 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        else if (!WayaaakAPP.getUserLoginState(MainActivity.this)) {
-            if (bottomBar.getCurrentTabPosition() == 2 || bottomBar.getCurrentTabPosition() == 4) {
+        else if ((!WayaaakAPP.getUserLoginState(MainActivity.this)) && (bottomBar.getCurrentTabPosition() == 2 || bottomBar.getCurrentTabPosition() == 3)) {
+          /*  if (bottomBar.getCurrentTabPosition() == 2 || bottomBar.getCurrentTabPosition() == 4) {
                 bottomBar.selectTabAtPosition(0);
-            }
-        } else if (bottomBar.getCurrentTabPosition() != 0) {
+
+            }*/
+            super.onBackPressed();
+               bottomBar.selectTabAtPosition(0);
+        }
+        else if (bottomBar.getCurrentTabPosition() != 0) {
             bottomBar.selectTabAtPosition(0);
         }
 
