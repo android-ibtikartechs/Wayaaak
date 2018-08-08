@@ -2,14 +2,13 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="3dp"
+    app:cardCornerRadius="3dp"
     android:layout_margin="10dp"
-    android:layout_height="230dp">
+    android:layout_height="190dp">
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="230dp"
+    android:layout_height="190dp"
     android:id="@+id/cat_home_big_container"
     >
 
@@ -24,14 +23,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@color/black"
             android:alpha="0.7"
             >
 
@@ -46,11 +45,12 @@
             android:paddingEnd="7dp"
             android:paddingStart="7dp"
             android:paddingTop="2dp"
+            android:textColor="@color/colorPrimary"
             android:layout_centerInParent="true"
-
+            android:gravity="center_vertical"
             android:maxLines="2"
             android:ellipsize="end"
-            android:textSize="20sp"
+            android:textSize="16sp"
             />
     </RelativeLayout>
 

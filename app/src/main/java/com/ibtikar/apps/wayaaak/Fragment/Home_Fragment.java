@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -53,7 +54,7 @@ public class Home_Fragment extends Fragment {
         volleySimple = VolleySimple.getInstance(getContext());
         categorylist = rootview.findViewById(R.id.cat_home_list);
         //categorylist.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        categorylist.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL, false));
+        categorylist.setLayoutManager(new GridLayoutManager(getContext(), 2));
         initView(rootview);
         init();
 
