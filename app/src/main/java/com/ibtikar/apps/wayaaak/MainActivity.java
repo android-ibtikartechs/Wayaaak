@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.text.TextUtilsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.LayoutDirection;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,10 +37,12 @@ import com.ibtikar.apps.wayaaak.Tools.WayaaakAPP;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabSelectListener;
+import com.yarolegovich.slidingrootnav.SlideGravity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     VolleySimple volleySimple;
@@ -59,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         volleySimple = VolleySimple.getInstance(this);
         slidingRootNav = new SlidingRootNavBuilder(this)
                 .withToolbarMenuToggle(toolbar)
+                .withGravity(isRTL() ? SlideGravity.RIGHT : SlideGravity.LEFT)
                 .withMenuLayout(R.layout.screen_navigation)
                 .inject();
         SlideNavigation slideNavigation = new SlideNavigation(R.id.main_fragment_container);
@@ -108,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
                                     .replace(R.id.main_fragment_container, new Cart_Fragment(), "Cart_Fragment")
                                     .commit();
                         } else {
+                            bottomBar.selectTabAtPosition(0);
                             getSupportFragmentManager()
                                     .beginTransaction()
                                     .replace(R.id.main_content, new Login_Fragment(), "Login_Fragment")
@@ -171,6 +177,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private boolean isRTL() {
+        return TextUtilsCompat.getLayoutDirectionFromLocale(Locale.getDefault()) == LayoutDirection.RTL;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

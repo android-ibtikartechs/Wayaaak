@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -49,6 +50,7 @@ public class Login_Fragment extends Fragment {
     com.facebook.FacebookCallback<LoginResult> FacebookCallback;
     LoginManager loginManager;
     TwitterLoginButton twitterLoginButton;
+    ImageView back;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,7 @@ public class Login_Fragment extends Fragment {
         volleySimple = VolleySimple.getInstance(getActivity());
         email = rootview.findViewById(R.id.email_edtx);
         password = rootview.findViewById(R.id.password_edtx);
+        back = rootview.findViewById(R.id.toolbar_back_ico);
         loginManager = LoginManager.getInstance();
         twitterLoginButton = new TwitterLoginButton(getContext());
 
@@ -97,6 +100,13 @@ public class Login_Fragment extends Fragment {
                 Toast.makeText(getContext(), getResources().getString(R.string.fetch_done), Toast.LENGTH_LONG).show();
                 LoginManager.getInstance().logInWithReadPermissions(getActivity(), Arrays.asList("public_profile", "email"));
                 LoginManager.getInstance().registerCallback(callbackManager, FacebookCallback);
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().remove(Login_Fragment.this).commit();
             }
         });
 
@@ -138,6 +148,8 @@ public class Login_Fragment extends Fragment {
             }
         }, progressDialog);
     }
+
+
 
     public void login(String token) {
         Map<String, String> map = new HashMap<>();
