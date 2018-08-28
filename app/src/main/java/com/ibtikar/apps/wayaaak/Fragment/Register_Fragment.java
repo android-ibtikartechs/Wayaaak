@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -50,6 +51,7 @@ public class Register_Fragment extends Fragment {
     LoginManager loginManager;
     TwitterLoginButton twitterLoginButton;
     String socialtoken = "";
+    ImageView back;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,7 +66,7 @@ public class Register_Fragment extends Fragment {
         password = rootview.findViewById(R.id.password_edtx);
         name = rootview.findViewById(R.id.username_edtx);
         phone = rootview.findViewById(R.id.phone_edtx);
-
+        back = rootview.findViewById(R.id.toolbar_back_ico);
         loginManager = LoginManager.getInstance();
         twitterLoginButton = new TwitterLoginButton(getContext());
 
@@ -92,6 +94,13 @@ public class Register_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 twitterLoginButton.performClick();
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().remove(Register_Fragment.this).commit();
             }
         });
 

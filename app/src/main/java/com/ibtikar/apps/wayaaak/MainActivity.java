@@ -340,6 +340,7 @@ public class MainActivity extends AppCompatActivity {
 
                         totalHeight += listItem.getMeasuredHeight();
 
+
                     }
                 }
         }
