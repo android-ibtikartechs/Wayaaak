@@ -41,6 +41,7 @@ import com.yarolegovich.slidingrootnav.SlideGravity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -277,9 +278,23 @@ public class MainActivity extends AppCompatActivity {
         volleySimple.asyncStringGet(WayaaakAPP.BASE_URL + "categories", new VolleySimple.NetworkListener<String>() {
             @Override
             public void onResponse(String s) {
+
                 CategoryResponse response = new Gson().fromJson(s, CategoryResponse.class);
+                ArrayList<Category> lastList = new ArrayList<>();
+                /*for (int i = 0; i < response.getData().size(); i++) {
+                    ListItem item = new ListItem();
+                    item.setId(response.getData().get(i).getId());
+                    item.setName("الكل");
+                    response.getData().get(i).getSub_list().add(item);
+                }*/
+
+                for (Category c: response.getData())
+                {
+                    lastList.add(c);
+                }
+                Log.d("TAG", "onResponse: "+s);
                 if (response.getStatus().equals("OK")) {
-                    final SliderNavAdapter sliderNavAdapter = new SliderNavAdapter(MainActivity.this, getSupportFragmentManager(), response.getData());
+                    final SliderNavAdapter sliderNavAdapter = new SliderNavAdapter(MainActivity.this, getSupportFragmentManager(), lastList);
                     catnawlist.setAdapter(sliderNavAdapter);
                     setListViewHeight(catnawlist, sliderNavAdapter, -1);
                     catnawlist.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {

@@ -2,6 +2,7 @@ package com.ibtikar.apps.wayaaak.Models.Response;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibtikar.apps.wayaaak.Models.Category;
+import com.ibtikar.apps.wayaaak.Models.ListItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +20,17 @@ public class CategoryResponse {
         this.status = status;
     }
 
-    public List<Category> getData() {
-        return data;
+    public void addDataAll(){
+        for (int i = 0; i < data.size(); i++) {
+            ListItem item = new ListItem();
+            item.setId(data.get(i).getId());
+            item.setName("الكل");
+            data.get(i).getSub_list().add(item);
+        }
+    }
+
+    public ArrayList<Category> getData() {
+        return new ArrayList<>(data);
     }
 
     public void setData(List<Category> data) {

@@ -25,12 +25,12 @@ public class SliderNavAdapter extends BaseExpandableListAdapter {
         this.context = context;
         this.fragmentManager = fragmentManager;
 
-        for (int i = 0; i < categories.size(); i++) {
+       /* for (int i = 0; i < categories.size(); i++) {
             ListItem item = new ListItem();
             item.setId(categories.get(i).getId());
             item.setName("الكل");
             categories.get(i).getSub_list().add(item);
-        }
+        }*/
     }
 
     @Override

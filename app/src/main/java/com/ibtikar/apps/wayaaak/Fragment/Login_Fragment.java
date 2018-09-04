@@ -51,10 +51,24 @@ public class Login_Fragment extends Fragment {
     LoginManager loginManager;
     TwitterLoginButton twitterLoginButton;
     ImageView back;
+    int lastscreen;
+
+
+    public static Login_Fragment newInstance(int someInt) {
+        Login_Fragment myFragment = new Login_Fragment();
+        Bundle args = new Bundle();
+        args.putInt("someInt", someInt);
+        myFragment.setArguments(args);
+        return myFragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            lastscreen = getArguments().getInt("someInt", 0);
+        }
+
     }
 
     @Override
@@ -83,7 +97,12 @@ public class Login_Fragment extends Fragment {
         rootview.findViewById(R.id.register_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().add(R.id.main_content, new Register_Fragment(), "").addToBackStack("").commit();
+                if (lastscreen==1)
+                {
+                    getFragmentManager().beginTransaction().add(R.id.product_fragment_container, new Register_Fragment(), "").addToBackStack("").commit();
+                }
+                else
+                    getFragmentManager().beginTransaction().add(R.id.main_content, new Register_Fragment(), "").addToBackStack("").commit();
             }
         });
 

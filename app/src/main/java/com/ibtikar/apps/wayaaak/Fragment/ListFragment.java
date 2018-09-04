@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -99,7 +100,7 @@ public class ListFragment extends Fragment {
         filter_ico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Filter_Bottom_Sheet filter_bottom_sheet = new Filter_Bottom_Sheet();
+              /*  Filter_Bottom_Sheet filter_bottom_sheet = new Filter_Bottom_Sheet();
                 filter_bottom_sheet.show(getFragmentManager(), filter_bottom_sheet.getTag());
                 filter_bottom_sheet.setOnActionListner(new Filter_Bottom_Sheet.onActionListener() {
                     @Override
@@ -118,6 +119,10 @@ public class ListFragment extends Fragment {
                         init(ID);
                     }
                 });
+                */
+                FragmentManager fm = getChildFragmentManager();
+                SearchDialogFragment searchDialogFragment = new SearchDialogFragment();
+                searchDialogFragment.show(fm, "search_dialog");
             }
         });
 

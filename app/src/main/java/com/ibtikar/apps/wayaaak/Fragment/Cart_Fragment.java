@@ -107,8 +107,14 @@ public class Cart_Fragment extends Fragment {
             public void onClick(View v) {
                 if (WayaaakAPP.getUserLoginState(getContext()))
                     startActivity(new Intent(getActivity(), Checkout_Activity.class));
-                else
-                    Toast.makeText(getContext(), "قم بتسجيل الدول اولا", Toast.LENGTH_SHORT).show();
+                else {
+                    Toast.makeText(getContext(), "قم بتسجيل الدخول اولا", Toast.LENGTH_SHORT).show();
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.product_fragment_container, Login_Fragment.newInstance(1), "Login_Fragment")
+                            .addToBackStack("")
+                            .commit();
+                }
             }
         });
     }
