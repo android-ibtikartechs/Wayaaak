@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import com.ibtikar.apps.wayaaak.Fragment.checkout.Add_Address_Fragment;
 
-public class Checkout_Activity extends AppCompatActivity {
+public class Checkout_Activity extends BaseActivity {
     ImageView back_ico;
 
     @Override

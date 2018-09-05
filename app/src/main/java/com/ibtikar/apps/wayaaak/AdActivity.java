@@ -41,7 +41,7 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
-public class AdActivity extends AppCompatActivity {
+public class AdActivity extends BaseActivity {
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private Boolean mLocationPermissionsGranted = false;

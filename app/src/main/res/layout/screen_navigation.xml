@@ -16,7 +16,7 @@
             android:layout_width="240dp"
             android:layout_height="70dp"
             android:background="@color/colorPrimary"
-            android:src="@drawable/logo_header1" />
+            android:src="@drawable/log_header" />
 
         <ExpandableListView
             android:id="@+id/catgoryList"

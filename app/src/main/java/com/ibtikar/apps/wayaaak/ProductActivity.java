@@ -34,7 +34,7 @@ import com.ibtikar.apps.wayaaak.Tools.WayaaakAPP;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProductActivity extends AppCompatActivity {
+public class ProductActivity extends BaseActivity {
     TextView title, price, sellername, details, cat_name, add_btn, oPrice;
     ImageView photo, like, cart, back, btnIncrease, btnDecrease;
     ConstraintLayout loutFooter;

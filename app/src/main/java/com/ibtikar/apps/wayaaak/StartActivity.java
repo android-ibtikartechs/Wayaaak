@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.ibtikar.apps.wayaaak.Fragment.Start_Fragment;
 
-public class StartActivity extends AppCompatActivity {
+public class StartActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -20,6 +20,7 @@
             android:orientation="vertical">
 
             <com.alexzh.circleimageview.CircleImageView
+                android:id="@+id/prof_im"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginTop="20dp"

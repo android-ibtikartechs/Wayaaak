@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.ibtikar.apps.wayaaak.Tools.WayaaakAPP;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
 
 

@@ -45,7 +45,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     VolleySimple volleySimple;
     Toolbar toolbar;
     ExpandableListView catnawlist;
@@ -64,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
         volleySimple = VolleySimple.getInstance(this);
         slidingRootNav = new SlidingRootNavBuilder(this)
                 .withToolbarMenuToggle(toolbar)
-                .withGravity(isRTL() ? SlideGravity.RIGHT : SlideGravity.LEFT)
+                //.withGravity(isRTL() ? SlideGravity.RIGHT : SlideGravity.LEFT)
+                .withGravity(SlideGravity.RIGHT)
                 .withMenuLayout(R.layout.screen_navigation)
                 .inject();
         SlideNavigation slideNavigation = new SlideNavigation(R.id.main_fragment_container);

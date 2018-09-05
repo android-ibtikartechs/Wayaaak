@@ -74,11 +74,11 @@ public class Category_Adapter extends RecyclerView.Adapter<Category_Adapter.NewV
         ListFragment listFragment = new ListFragment();
         listFragment.setArguments(bundle);
         List<ListItem> items = categories.get(pos).getSublist();
-        ListItem item = new ListItem();
+        /*ListItem item = new ListItem();
         item.setId(categories.get(pos).getParentcategory_id());
         item.setName("الكل");
         if (items.get(items.size() - 1).getId() != item.getId())
-            items.add(item);
+            items.add(item);*/
         listFragment.setSub_list(items);
         fragmentManager.beginTransaction().add(R.id.main_content, listFragment, "").addToBackStack("").commit();
 

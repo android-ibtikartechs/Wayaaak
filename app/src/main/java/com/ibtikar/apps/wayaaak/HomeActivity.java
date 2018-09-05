@@ -38,7 +38,7 @@ import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 import java.io.IOException;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity {
     private SlidingRootNav slidingRootNav;
     Spinner citiesSpin, areaSpin, catSpin;
     Button btnSearch;
