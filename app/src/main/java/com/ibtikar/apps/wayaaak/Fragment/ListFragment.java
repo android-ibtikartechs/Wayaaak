@@ -1,12 +1,14 @@
 package com.ibtikar.apps.wayaaak.Fragment;
 
 import android.app.ProgressDialog;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ListFragment extends Fragment {
+public class ListFragment extends Fragment implements List_Adapter.onUpdateListener {
     VolleySimple volleySimple;
     RecyclerView result_list;
     TabLayout sub_tabs;
@@ -47,6 +49,13 @@ public class ListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        if (listAdapter != null)
+            listAdapter.notifyDataSetChanged();
+        super.onResume();
     }
 
     @Override
@@ -74,6 +83,7 @@ public class ListFragment extends Fragment {
         empty_holder = view.findViewById(R.id.no_item_holder);
 
         title.setText(getArguments().getString("title", ""));
+
         result_list.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         if (subList.size() > 1) {
@@ -153,6 +163,7 @@ public class ListFragment extends Fragment {
                 ListResponse response = new Gson().fromJson(s, ListResponse.class);
                 if (response.getStatus().equals("OK")) {
                     listAdapter = new List_Adapter(getContext(), getFragmentManager(), response.getProducts());
+                    listAdapter.setCustomButtonListner(ListFragment.this);
                     result_list.setAdapter(listAdapter);
                     if (listAdapter.getItemCount() != 0) empty_holder.setVisibility(View.GONE);
                     else {
@@ -168,4 +179,29 @@ public class ListFragment extends Fragment {
         }, progressDialog);
     }
 
+    @Override
+    public void onUpdateLikeStatus(int position, boolean status) {
+        if (status)
+            ((ImageView)result_list.findViewHolderForLayoutPosition(position).itemView.findViewById(R.id.product_like_img)).setImageResource(R.drawable.ic_action_liked);
+        else
+            ((ImageView)result_list.findViewHolderForLayoutPosition(position).itemView.findViewById(R.id.product_like_img)).setImageResource(R.drawable.ic_action_unliked);
+
+    }
+
+    @Override
+    public void onUpdatePriceView(int position, String price, String oPrice) {
+        if (result_list.findViewHolderForLayoutPosition(position) != null) {
+            if (oPrice.isEmpty() || oPrice.equals("0")) {
+                ((TextView) result_list.findViewHolderForLayoutPosition(position).itemView.findViewById(R.id.product_offer_price_txt)).setText(price);
+                ((TextView) result_list.findViewHolderForLayoutPosition(position).itemView.findViewById(R.id.product_price_txt)).setVisibility(View.GONE);
+            } else {
+                ((TextView) result_list.findViewHolderForLayoutPosition(position).itemView.findViewById(R.id.product_price_txt)).setText(price);
+                //Log.d("TAG", "onBindViewHolder: " + products.get(position).getOprice());
+                //} else {
+                ((TextView) result_list.findViewHolderForLayoutPosition(position).itemView.findViewById(R.id.product_offer_price_txt)).setText(oPrice);
+                // holder.price.setText(products.get(position).getOprice()  );
+                ((TextView) result_list.findViewHolderForLayoutPosition(position).itemView.findViewById(R.id.product_price_txt)).setPaintFlags(((TextView) result_list.findViewHolderForLayoutPosition(position).itemView.findViewById(R.id.product_price_txt)).getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            }
+        }
+    }
 }

@@ -47,7 +47,6 @@ public class Home_Fragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.fragment_home, container, false);
@@ -80,12 +79,8 @@ public class Home_Fragment extends Fragment {
     public void initView(View view) {
         images_slider = view.findViewById(R.id.image_page_slider);
         pages_dots = view.findViewById(R.id.image_page_dots);
-
         timer = new Timer();
         scheduleSlider();
-
-
-
     }
 
     public void init() {

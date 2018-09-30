@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -55,22 +56,31 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.MyViewHolder
         return new MyViewHolder(view);
     }
 
+
+
+
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
        // if (products.get(position).getOprice().equals("0")) {
 
+  /*      holder.price.setText(products.get(position).getPrice());
+        holder.oprice.setText(products.get(position).getOprice() );*/
+
         if(products.get(position).getOprice().isEmpty() || products.get(position).getOprice().equals("0"))
         {
             holder.oprice.setText(products.get(position).getPrice());
-            holder.price.setVisibility(View.GONE);
+            holder.oprice.setTextColor(context.getResources().getColor(R.color.colorAccent));
+            //holder.price.setVisibility(View.GONE);
         }
         else
         {
-            holder.price.setText(products.get(position).getPrice() );
+            holder.price.setTextColor(context.getResources().getColor(R.color.colorPrice));
+            holder.price.setText(products.get(position).getPrice());
             Log.d("TAG", "onBindViewHolder: " + products.get(position).getOprice());
             //} else {
-            holder.oprice.setText(products.get(position).getOprice()  );
+            holder.oprice.setText(products.get(position).getOprice());
             // holder.price.setText(products.get(position).getOprice()  );
+            holder.oprice.setTextColor(context.getResources().getColor(R.color.colorAccent));
             holder.price.setPaintFlags(holder.price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
@@ -86,34 +96,68 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.MyViewHolder
             }
         });
 
-        if (user != null) {
+        Log.d("TAG", "onBindViewHolder: " + products.get(position).getIsfavourite());
+
+        if (products.get(position).getIsfavourite())
+            holder.like.setImageResource(R.drawable.ic_action_liked);
+        else
+            holder.like.setImageResource(R.drawable.ic_action_unliked);
+
+        holder.like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (products.get(position).getIsfavourite() != null && user != null)
+                {
+                    if (products.get(position).getIsfavourite()) {
+                        listener.onUpdateLikeStatus(position, false);
+                        removeFromFav(holder.like, position);
+                        //holder.like.setImageResource(R.drawable.ic_action_unliked);
+                        products.get(position).setIsfavourite(false);
+                    } else {
+                        listener.onUpdateLikeStatus(position, true);
+                        addToFav(holder.like, position);
+                        //holder.like.setImageResource(R.drawable.ic_action_liked);
+                        products.get(position).setIsfavourite(true);
+                    }
+                }
+                else
+                    Toast.makeText(context, "برجاء التسجيل/تسجيل الدخول لتتمكن من استخدام سلة الأمنيات", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+/*
             if (products.get(position).getIsfavourite() != null)
             {
                 holder.like.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (products.get(position).getIsfavourite()) {
-                            removeFromFav(holder.like, position);
-                            holder.like.setImageResource(R.drawable.ic_action_unliked);
-                            products.get(position).setIsfavourite(false);
+                        if (user != null) {
+                            if (products.get(position).getIsfavourite()) {
+                                removeFromFav(holder.like, position);
+                                holder.like.setImageResource(R.drawable.ic_action_unliked);
+                                products.get(position).setIsfavourite(false);
+                            } else {
+                                addToFav(holder.like, position);
+                                holder.like.setImageResource(R.drawable.ic_action_liked);
+                                products.get(position).setIsfavourite(true);
+                            }
                         }
-                        else {
-                            addToFav(holder.like, position);
-                            holder.like.setImageResource(R.drawable.ic_action_liked);
-                            products.get(position).setIsfavourite(true);
-                        }
+
+
                     }
                 });
                 if (products.get(position).getIsfavourite()) {
+
+
                     holder.like.setImageResource(R.drawable.ic_action_liked);
-                  /*  holder.like.setOnClickListener(new View.OnClickListener() {
+                    holder.like.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             removeFromFav(holder.like, position);
                             holder.like.setImageResource(R.drawable.ic_action_unliked);
                             products.get(position).setIsfavourite(false);
                         }
-                    });*/
+                    });
                 } else {
                     holder.like.setImageResource(R.drawable.ic_action_unliked);
                     /*holder.like.setOnClickListener(new View.OnClickListener() {
@@ -123,10 +167,14 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.MyViewHolder
                             holder.like.setImageResource(R.drawable.ic_action_liked);
                             products.get(position).setIsfavourite(true);
                         }
-                    });*/
+                    });
                 }
         }
-        }
+
+        else
+                Toast.makeText(context, "برجاء التسجيل/تسجيل الدخول لتتمكن من استخدام سلة الأمنيات", Toast.LENGTH_SHORT).show();
+*/
+        //listener.onUpdatePriceView(position, products.get(position).getPrice(), products.get(position).getOprice());
     }
 
     @Override
@@ -134,22 +182,26 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.MyViewHolder
         return products.size();
     }
 
-    public void addToFav(final ImageView img, int pos) {
+    public void addToFav(final ImageView img, final int pos) {
         Map<String, String> map = new HashMap<>();
         map.put("user", String.valueOf(user.getId()));
         map.put("product", String.valueOf(products.get(pos).getId()));
         volley.asyncStringPost(WayaaakAPP.BASE_URL + "addtofavourites", map, new VolleySimple.NetworkListener<String>() {
             @Override
             public void onResponse(String s) {
+                Log.d("TAG", "add to fav " + s);
                 Status response = new Gson().fromJson(s, Status.class);
                 if (response.getStatus().equals("false")) {
-                    img.setImageResource(R.drawable.ic_action_unliked);
+                    listener.onUpdateLikeStatus(pos, false);
                 }
+                else
+                    listener.onUpdateLikeStatus(pos, true);
             }
 
             @Override
             public void onFailure(Exception e) {
-
+                listener.onUpdateLikeStatus(pos, false);
+                Toast.makeText(context, "خطأ في الاتصال", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -161,22 +213,23 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.MyViewHolder
         volley.asyncStringPost(WayaaakAPP.BASE_URL + "removefromfavourites", map, new VolleySimple.NetworkListener<String>() {
             @Override
             public void onResponse(String s) {
+                Log.d("TAG", "remove from fav " + s);
                 Status response = new Gson().fromJson(s, Status.class);
                 if (response.getStatus().equals("OK")) {
                     if (listener != null) {
-                        products.remove(pos);
-                        notifyDataSetChanged();
-                        listener.onUpdate();
+                        listener.onUpdateLikeStatus(pos,false);
 
                     }
                 } else {
-                    img.setImageResource(R.drawable.ic_action_liked);
+                    listener.onUpdateLikeStatus(pos,true);
+
                 }
             }
 
             @Override
             public void onFailure(Exception e) {
-
+                listener.onUpdateLikeStatus(pos,true);
+                Toast.makeText(context, "خطأ في الاتصال", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -199,6 +252,11 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.MyViewHolder
     }
 
     public interface onUpdateListener {
-        void onUpdate();
+        void onUpdateLikeStatus(int position, boolean status);
+        void onUpdatePriceView(int position, String price, String oPrice);
+    }
+
+    public void setCustomButtonListner(onUpdateListener listener) {
+        this.listener = listener;
     }
 }

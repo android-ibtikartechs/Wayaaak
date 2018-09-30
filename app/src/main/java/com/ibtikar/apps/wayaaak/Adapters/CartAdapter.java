@@ -8,12 +8,14 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -115,7 +117,36 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 context.startActivity(intent);
             }
         });
-        if (user != null) {
+
+        if (cartList.get(position).isFavourite())
+            holder.like.setImageResource(R.drawable.ic_action_liked);
+        else
+            holder.like.setImageResource(R.drawable.ic_action_unliked);
+
+        holder.like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (user != null)
+                {
+                    if (cartList.get(position).isFavourite()) {
+                        listener.onUpdateLike(position, false);
+                        removeFromFav(holder.like, position);
+                        //holder.like.setImageResource(R.drawable.ic_action_unliked);
+                        cartList.get(position).setFavourite(false);
+                    } else {
+                        listener.onUpdateLike(position, true);
+                        addToFav(holder.like, position);
+                        //holder.like.setImageResource(R.drawable.ic_action_liked);
+                        cartList.get(position).setFavourite(true);
+                    }
+                }
+                else
+                    Toast.makeText(context, "برجاء التسجيل/تسجيل الدخول لتتمكن من استخدام سلة الأمنيات", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+       /* if (user != null) {
             if (cartList.get(position).isFavourite()) {
                 holder.like.setImageResource(R.drawable.ic_action_liked);
                 holder.like.setOnClickListener(new View.OnClickListener() {
@@ -137,7 +168,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                     }
                 });
             }
-        }
+        }*/
     }
 
     @Override
@@ -145,22 +176,26 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         return cartList.size();
     }
 
-    public void addToFav(final ImageView img, int pos) {
+    public void addToFav(final ImageView img, final int pos) {
         Map<String, String> map = new HashMap<>();
         map.put("user", String.valueOf(user.getId()));
         map.put("product", String.valueOf(cartList.get(pos).getId()));
         volley.asyncStringPost(WayaaakAPP.BASE_URL + "addtofavourites", map, new VolleySimple.NetworkListener<String>() {
             @Override
             public void onResponse(String s) {
+                Log.d("TAG", "add to fav " + s);
                 Status response = new Gson().fromJson(s, Status.class);
                 if (response.getStatus().equals("false")) {
-                    img.setImageResource(R.drawable.ic_action_unliked);
+                    listener.onUpdateLike(pos, false);
                 }
+                else
+                    listener.onUpdateLike(pos, true);
             }
 
             @Override
             public void onFailure(Exception e) {
-
+                listener.onUpdateLike(pos, false);
+                Toast.makeText(context, "خطأ في الاتصال", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -172,15 +207,23 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         volley.asyncStringPost(WayaaakAPP.BASE_URL + "removefromfavourites", map, new VolleySimple.NetworkListener<String>() {
             @Override
             public void onResponse(String s) {
+                Log.d("TAG", "remove from fav " + s);
                 Status response = new Gson().fromJson(s, Status.class);
-                if (!response.getStatus().equals("OK")) {
-                    img.setImageResource(R.drawable.ic_action_liked);
+                if (response.getStatus().equals("OK")) {
+                    if (listener != null) {
+                        listener.onUpdateLike(pos,false);
+
+                    }
+                } else {
+                    listener.onUpdateLike(pos,true);
+
                 }
             }
 
             @Override
             public void onFailure(Exception e) {
-
+                listener.onUpdateLike(pos,true);
+                Toast.makeText(context, "خطأ في الاتصال", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -207,5 +250,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
     public interface onUpdateListener {
         void onUpdate();
+        void onUpdateLike(int pos, boolean status);
+    }
+    public void setCustomButtonListner(onUpdateListener listener) {
+        this.listener = listener;
     }
 }

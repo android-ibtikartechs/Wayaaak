@@ -10,8 +10,12 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,11 +35,13 @@ import com.ibtikar.apps.wayaaak.Models.Status;
 import com.ibtikar.apps.wayaaak.Models.User;
 import com.ibtikar.apps.wayaaak.Tools.WayaaakAPP;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProductActivity extends BaseActivity {
-    TextView title, price, sellername, details, cat_name, add_btn, oPrice;
+public class ProductActivity extends BaseActivity implements SuggestedProductsAdapter.ContainerClickListener {
+    TextView title, price, sellername, cat_name, add_btn, oPrice;
+    WebView details;
     ImageView photo, like, cart, back, btnIncrease, btnDecrease;
     ConstraintLayout loutFooter;
     VolleySimple volleySimple;
@@ -126,7 +132,23 @@ public class ProductActivity extends BaseActivity {
 
                     Glide.with(ProductActivity.this).load(response.getProduct().getImage()).asBitmap().into(photo);
                     sellername.setText(sellername.getText() + response.getProduct().getSellername());
-                    details.setText(details.getText() + response.getProduct().getDetails());
+                    //details.setText(details.getText() + response.getProduct().getDetails());
+
+
+                    details.setWebViewClient(new WebViewClient() {
+
+                        @Override
+                        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                            // TODO Auto-generated method stub
+
+                            return false;
+                        }
+                    });
+                    WebSettings webSettings2 = details.getSettings();
+                    webSettings2.setJavaScriptEnabled(true);
+                    details.loadDataWithBaseURL("", buildHtml(response.getProduct().getDetails()), "text/html", "utf-8", "");
+
+
 
                     if (response.getProduct().getIsfavourite() != null) {
                         if (response.getProduct().getIsfavourite()) {
@@ -182,6 +204,7 @@ public class ProductActivity extends BaseActivity {
                 if (response.isStatus())
                 {
                     categoryAdapter = new SuggestedProductsAdapter(ProductActivity.this,response.getProducts());
+                    categoryAdapter.setCustomButtonListner(ProductActivity.this);
                     rvSuggestedList.setAdapter(categoryAdapter);
                 }
 
@@ -352,5 +375,49 @@ public class ProductActivity extends BaseActivity {
     }
 
     public void dymmyClick(View view) {
+    }
+
+    private String buildHtml (String text)
+    {
+        String resultHtml = "<html dir=\"rtl\" lang=\"ar\">\n" +
+                "  <head>\n" +
+                "    <link rel=\"stylesheet\"\n" +
+                "          href=\"https://fonts.googleapis.com/css?family=Cairo\">\n" +
+                "    <style>\n" +
+                "      body {\n" +
+                "        font-family: 'Cairo', sans-serif;\n" +
+
+                "      }\n" +
+                "    </style>\n" +
+                "  </head>\n" +
+                "  <body bgcolor=\"#ffffff\">\n" +
+                "    <div>" + decodeBase64(text) + "</div>\n" +
+                "  </body>\n" +
+                "</html>";
+        return resultHtml;
+    }
+
+    private String decodeBase64(String coded){
+      /*  byte[] valueDecoded= new byte[0];
+        try {
+            valueDecoded = Base64.decode(coded.getBytes("UTF-8"), Base64.DEFAULT);
+        } catch (UnsupportedEncodingException e) {
+        }*/
+        byte[] data = Base64.decode(coded, Base64.DEFAULT);
+
+        String decoded = null;
+        try {
+            decoded = new String(data, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+
+        return decoded;
+    }
+
+    @Override
+    public void onItemClickListener(String id, String title) {
+
     }
 }

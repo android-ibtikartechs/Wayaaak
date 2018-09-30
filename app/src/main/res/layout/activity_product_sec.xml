@@ -74,7 +74,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/img" />
+                app:srcCompat="@drawable/product_gift_place_holder" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -94,7 +94,6 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text=" زهور هالفيتي"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -102,7 +101,7 @@
                     android:id="@+id/product_seller_name_txt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="اسم البائع" />
+                    android:text="اسم البائع: " />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -134,8 +133,6 @@
                         android:layout_toEndOf="@id/product_offer_price_txt"
                         android:layout_toRightOf="@id/product_offer_price_txt"
                         android:gravity="top"
-                        android:text="100"
-
                         android:textSize="14sp" />
                 </LinearLayout>
                     <TextView
@@ -187,8 +184,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="3"
-                    android:text="ذل العلماء سنوات طويلة وجهودا مضنية لتخليق الورد الأسود، إلا أن الطبيعة سبقتهم في هذا المجال، ذلك أن الورد الأسود موجود بصفة حصرية في بلدة تركية، لكن المفارقة أن ما أنعمت به الأرض على هذه القرية يعتبر – في نظر السكان – مجلبة للشؤم من خلفية لا تمت إلى العلم بصلة، وهي نتاج ثقافة شعبية تبقى على الدوام محكومة بأمور متخيّلة، لا سيما وأن اللون الأسود مرتبط بالحزن وفقدان الأحبة
-الورود السوداء في قرية هالفيتي التركية… جمال نادر مهدد بالانقراض" />
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -201,6 +197,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
                 <LinearLayout
@@ -275,17 +272,18 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <TextView
+            <WebView
                 android:id="@+id/product_details_txt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="تعتبر الورود السوداء فصيلة نادرة على مستوى العالم، تنمو بشكل حصري في قرية هالفيتي التركية، بالرغم من أنَّ علماء تمكّنوا من تخليق نوع من الورد الأسود، لكن تبقى ورورد قرية هالفيتي من صنع الطبيعة وأحد إبداعاتها.وتُعدّ ورودًا عادية في شكلها تمامًا كأي نوع آخر من الورد المعروف، ولكنها مختلفة عن غيرها بلونها الغريب والمميز، ولم يشفع لها جمالها النادر ليصفها الكثيرون بأنها نذير شؤم ونحس."
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/lout_footer"
@@ -380,7 +378,7 @@
                 android:id="@+id/im_btn_decrease_quantity"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                app:srcCompat="@drawable/ic_arrow_left"
+                app:srcCompat="@drawable/ic_arrow_right"
                 />
 
             <EditText
@@ -398,7 +396,7 @@
                 android:id="@+id/im_btn_increase_quantity"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                app:srcCompat="@drawable/ic_arrow_right"
+                app:srcCompat="@drawable/ic_arrow_left"
                 />
         </LinearLayout>
 

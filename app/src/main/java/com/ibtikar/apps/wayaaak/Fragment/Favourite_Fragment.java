@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,19 +58,25 @@ public class Favourite_Fragment extends Fragment {
         volleySimple.asyncStringGet(WayaaakAPP.BASE_URL + "userfavourites/" + id, new VolleySimple.NetworkListener<String>() {
             @Override
             public void onResponse(String s) {
+                Log.d("res", "onResponse: " + s);
                 ListResponse response = new Gson().fromJson(s, ListResponse.class);
                 if (response.getStatus().equals("OK")) {
                     listAdapter = new List_Adapter(getContext(), getFragmentManager(), response.getProducts());
                     result_list.setAdapter(listAdapter);
                     listAdapter.registerOnUpdateListener(new List_Adapter.onUpdateListener() {
                         @Override
-                        public void onUpdate() {
+                        public void onUpdateLikeStatus(int pos, boolean status) {
                             Toast.makeText(getContext(), "تم الحذف", Toast.LENGTH_SHORT).show();
                             if (listAdapter.getItemCount() != 0)
                                 empty_holder.setVisibility(View.GONE);
                             else {
                                 empty_holder.setVisibility(View.VISIBLE);
                             }
+                        }
+
+                        @Override
+                        public void onUpdatePriceView(int position, String price, String oPrice) {
+
                         }
                     });
                     if (listAdapter.getItemCount() != 0) empty_holder.setVisibility(View.GONE);

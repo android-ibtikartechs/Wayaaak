@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -137,6 +138,7 @@ public class Confirm_Fragment extends Fragment {
         volleySimple.asyncStringPost(WayaaakAPP.BASE_URL + "addbook", map, new VolleySimple.NetworkListener<String>() {
             @Override
             public void onResponse(String s) {
+                Log.d("TAG", "onResponse: "+ s);
                 OrderResponse response = new Gson().fromJson(s, OrderResponse.class);
                 if (response.getStatus().equals("OK")) {
                     Toast.makeText(getContext(), "تم ارسال طلبك", Toast.LENGTH_SHORT).show();

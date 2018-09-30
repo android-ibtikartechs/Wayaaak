@@ -83,7 +83,17 @@ public class Cart_Fragment extends Fragment {
                     empty_holder.setVisibility(View.GONE);
                 }
             }
+
+            @Override
+            public void onUpdateLike(int pos, boolean status) {
+                if (status)
+                    ((ImageView)cartList.findViewHolderForLayoutPosition(pos).itemView.findViewById(R.id.like_img)).setImageResource(R.drawable.ic_action_liked);
+                else
+                    ((ImageView)cartList.findViewHolderForLayoutPosition(pos).itemView.findViewById(R.id.like_img)).setImageResource(R.drawable.ic_action_unliked);
+
+            }
         });
+
         if (cartAdapter.getItemCount() == 0) {
             empty_holder.setVisibility(View.VISIBLE);
             total_holder.setVisibility(View.GONE);
