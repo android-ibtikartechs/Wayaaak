@@ -61,17 +61,19 @@ public class Favourite_Fragment extends Fragment {
                 Log.d("res", "onResponse: " + s);
                 ListResponse response = new Gson().fromJson(s, ListResponse.class);
                 if (response.getStatus().equals("OK")) {
-                    listAdapter = new List_Adapter(getContext(), getFragmentManager(), response.getProducts());
+                    listAdapter = new List_Adapter(getContext(), getFragmentManager(), response.getProducts(),1);
                     result_list.setAdapter(listAdapter);
                     listAdapter.registerOnUpdateListener(new List_Adapter.onUpdateListener() {
                         @Override
                         public void onUpdateLikeStatus(int pos, boolean status) {
                             Toast.makeText(getContext(), "تم الحذف", Toast.LENGTH_SHORT).show();
-                            if (listAdapter.getItemCount() != 0)
+                            //listAdapter.removeAt(result_list.findViewHolderForAdapterPosition(pos).getAdapterPosition());
+                            //listAdapter.removeAt(pos);
+                           /* if (listAdapter.getItemCount() != 0)
                                 empty_holder.setVisibility(View.GONE);
                             else {
                                 empty_holder.setVisibility(View.VISIBLE);
-                            }
+                            }*/
                         }
 
                         @Override

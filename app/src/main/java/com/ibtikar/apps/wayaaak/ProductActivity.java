@@ -1,6 +1,7 @@
 package com.ibtikar.apps.wayaaak;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -418,6 +419,10 @@ public class ProductActivity extends BaseActivity implements SuggestedProductsAd
 
     @Override
     public void onItemClickListener(String id, String title) {
-
+        finish();
+        Log.d("", "suggested product id: " + id);
+        Intent intent = new Intent(ProductActivity.this, ProductActivity.class);
+        intent.putExtra("id", Integer.valueOf(id));
+        startActivity(intent);
     }
 }

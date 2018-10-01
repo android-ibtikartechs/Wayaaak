@@ -76,7 +76,7 @@ public class SlideNavigation {
                 if (WayaaakAPP.getUserLoginState(activity)) {
                     fragmentManager
                             .beginTransaction()
-                            .replace(fragmnetholder, new Favourite_Fragment(), "Favourite_Fragment")
+                            .replace(R.id.main_content, new Favourite_Fragment(), "Favourite_Fragment")
                             .addToBackStack("Favourite_Fragment")
                             .commit();
                 } else {

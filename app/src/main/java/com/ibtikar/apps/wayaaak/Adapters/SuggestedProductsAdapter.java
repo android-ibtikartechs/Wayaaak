@@ -1,9 +1,11 @@
 package com.ibtikar.apps.wayaaak.Adapters;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,9 +55,28 @@ public class SuggestedProductsAdapter extends RecyclerView.Adapter<RecyclerView.
         itemViewHolder.tvTitle.setText(productListItem.getName());
         itemViewHolder.tvPrice.setText(productListItem.getOprice());
 
+        if(arrayList.get(position).getOprice().isEmpty() || arrayList.get(position).getOprice().equals("0"))
+        {
+            itemViewHolder.oprice.setText(arrayList.get(position).getPrice());
+            itemViewHolder.oprice.setTextColor(context.getResources().getColor(R.color.colorAccent));
+            //holder.price.setVisibility(View.GONE);
+        }
+        else
+        {
+            itemViewHolder.price.setTextColor(context.getResources().getColor(R.color.colorPrice));
+            itemViewHolder.price.setText(arrayList.get(position).getPrice());
+            Log.d("TAG", "onBindViewHolder: " + arrayList.get(position).getOprice());
+            //} else {
+            itemViewHolder.oprice.setText(arrayList.get(position).getOprice());
+            // holder.price.setText(products.get(position).getOprice()  );
+            itemViewHolder.oprice.setTextColor(context.getResources().getColor(R.color.colorAccent));
+            itemViewHolder.price.setPaintFlags(itemViewHolder.price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+
         itemViewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 customListener.onItemClickListener(productListItem.getId().toString(),productListItem.getName());
             }
         });
@@ -80,7 +101,7 @@ public class SuggestedProductsAdapter extends RecyclerView.Adapter<RecyclerView.
 
     protected class ItemViewHolder extends RecyclerView.ViewHolder {
         ImageView imMain;
-        TextView tvTitle;
+        TextView tvTitle,price, oprice;
         TextView tvPrice;
         ConstraintLayout constraintLayout;
 
@@ -88,6 +109,8 @@ public class SuggestedProductsAdapter extends RecyclerView.Adapter<RecyclerView.
             super(itemView);
             constraintLayout = itemView.findViewById(R.id.cont_main);
             imMain = itemView.findViewById(R.id.imageView2);
+            price = itemView.findViewById(R.id.product_price_txt);
+            oprice = itemView.findViewById(R.id.product_offer_price_txt);
             tvTitle = itemView.findViewById(R.id.textView);
             tvPrice = itemView.findViewById(R.id.textView2);
         }

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
@@ -22,7 +23,7 @@ import com.ibtikar.apps.wayaaak.Tools.WayaaakAPP;
  * Created by Hosam Azzam on 2/22/2018.
  */
 
-public class Discount_Fragment extends Fragment {
+public class Discount_Fragment extends Fragment implements List_Adapter.onUpdateListener  {
     VolleySimple volleySimple;
     RecyclerView result_list;
     List_Adapter listAdapter;
@@ -64,6 +65,7 @@ public class Discount_Fragment extends Fragment {
                 ListResponse response = new Gson().fromJson(s, ListResponse.class);
                 if (response.getStatus().equals("OK")) {
                     listAdapter = new List_Adapter(getContext(), getFragmentManager(), response.getProducts());
+                    listAdapter.setCustomButtonListner(Discount_Fragment.this);
                     result_list.setAdapter(listAdapter);
                     if (listAdapter.getItemCount() != 0) empty_holder.setVisibility(View.GONE);
                     else {
@@ -79,5 +81,18 @@ public class Discount_Fragment extends Fragment {
         }, progressDialog);
     }
 
+    @Override
+    public void onUpdateLikeStatus(int position, boolean status) {
+        if (status)
+            ((ImageView)result_list.findViewHolderForLayoutPosition(position).itemView.findViewById(R.id.product_like_img)).setImageResource(R.drawable.ic_action_liked);
+        else
+            ((ImageView)result_list.findViewHolderForLayoutPosition(position).itemView.findViewById(R.id.product_like_img)).setImageResource(R.drawable.ic_action_unliked);
+
+    }
+
+    @Override
+    public void onUpdatePriceView(int position, String price, String oPrice) {
+
+    }
 }
 

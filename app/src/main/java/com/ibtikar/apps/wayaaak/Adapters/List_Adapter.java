@@ -2,6 +2,7 @@ package com.ibtikar.apps.wayaaak.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -16,8 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.gson.Gson;
 import com.hosamazzam.volleysimple.VolleySimple;
+import com.ibtikar.apps.wayaaak.Fragment.Favourite_Fragment;
 import com.ibtikar.apps.wayaaak.Models.Product;
 import com.ibtikar.apps.wayaaak.Models.Status;
 import com.ibtikar.apps.wayaaak.Models.User;
@@ -36,12 +40,22 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.MyViewHolder
     public onUpdateListener listener;
     VolleySimple volley;
     User user;
+    int fragmentType=0;
 
     public List_Adapter(Context context, FragmentManager fragmentManager, List<Product> products) {
         this.context = context;
         this.fragmentManager = fragmentManager;
         this.products = products;
         this.volley = VolleySimple.getInstance(context);
+        user = WayaaakAPP.getUserLoginInfo(context);
+    }
+
+    public List_Adapter(Context context, FragmentManager fragmentManager, List<Product> products, int fragmentType) {
+        this.context = context;
+        this.fragmentManager = fragmentManager;
+        this.products = products;
+        this.volley = VolleySimple.getInstance(context);
+        this.fragmentType = fragmentType;
         user = WayaaakAPP.getUserLoginInfo(context);
     }
 
@@ -66,6 +80,7 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.MyViewHolder
   /*      holder.price.setText(products.get(position).getPrice());
         holder.oprice.setText(products.get(position).getOprice() );*/
 
+
         if(products.get(position).getOprice().isEmpty() || products.get(position).getOprice().equals("0"))
         {
             holder.oprice.setText(products.get(position).getPrice());
@@ -87,6 +102,21 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.MyViewHolder
        // }
         holder.title.setText(products.get(position).getName());
         Glide.with(context).load(products.get(position).getImage()).asBitmap().into(holder.photo);
+       /* Glide.with(context).load(products.get(position).getImage()).asBitmap().into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+                // do something with the bitmap
+                // for demonstration purposes, let's just set it to an ImageView
+
+
+                holder.photo.setImageBitmap( bitmap );
+               // bitmapShare = bitmap;
+
+            }
+        });*/
+
+
+
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,11 +139,20 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.MyViewHolder
                 if (products.get(position).getIsfavourite() != null && user != null)
                 {
                     if (products.get(position).getIsfavourite()) {
-                        listener.onUpdateLikeStatus(position, false);
                         removeFromFav(holder.like, position);
+                        if (fragmentType != 0) {
+                            products.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, products.size());
+                        }
+                        if (fragmentType == 0)
+                            listener.onUpdateLikeStatus(position, false);
+
                         //holder.like.setImageResource(R.drawable.ic_action_unliked);
-                        products.get(position).setIsfavourite(false);
+                        if (fragmentType == 0)
+                            products.get(position).setIsfavourite(false);
                     } else {
+
                         listener.onUpdateLikeStatus(position, true);
                         addToFav(holder.like, position);
                         //holder.like.setImageResource(R.drawable.ic_action_liked);
@@ -207,6 +246,7 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.MyViewHolder
     }
 
     public void removeFromFav(final ImageView img, final int pos) {
+
         Map<String, String> map = new HashMap<>();
         map.put("user", String.valueOf(user.getId()));
         map.put("product", String.valueOf(products.get(pos).getId()));
@@ -217,18 +257,21 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.MyViewHolder
                 Status response = new Gson().fromJson(s, Status.class);
                 if (response.getStatus().equals("OK")) {
                     if (listener != null) {
-                        listener.onUpdateLikeStatus(pos,false);
+                        if (fragmentType == 0)
+                            listener.onUpdateLikeStatus(pos,false);
 
                     }
                 } else {
-                    listener.onUpdateLikeStatus(pos,true);
+                    if (fragmentType == 0)
+                        listener.onUpdateLikeStatus(pos,true);
 
                 }
             }
 
             @Override
             public void onFailure(Exception e) {
-                listener.onUpdateLikeStatus(pos,true);
+                if (fragmentType == 0)
+                    listener.onUpdateLikeStatus(pos,true);
                 Toast.makeText(context, "خطأ في الاتصال", Toast.LENGTH_SHORT).show();
             }
         });
@@ -249,14 +292,26 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.MyViewHolder
             container = itemView.findViewById(R.id.product_container);
             like = itemView.findViewById(R.id.product_like_img);
         }
+
     }
 
     public interface onUpdateListener {
         void onUpdateLikeStatus(int position, boolean status);
+        //void onShareClickListener(String imageUri, String text);
         void onUpdatePriceView(int position, String price, String oPrice);
     }
 
     public void setCustomButtonListner(onUpdateListener listener) {
         this.listener = listener;
     }
+
+    public void removeAt(int position) {
+        products.remove(position);
+
+        Log.d("", "removeAt: "+position);
+        notifyItemRemoved(position);
+    }
+
+
+
 }

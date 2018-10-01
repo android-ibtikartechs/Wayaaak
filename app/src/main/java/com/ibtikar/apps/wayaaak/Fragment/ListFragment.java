@@ -86,7 +86,7 @@ public class ListFragment extends Fragment implements List_Adapter.onUpdateListe
 
         result_list.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
-        if (subList.size() > 1) {
+        if (subList.size() >= 1) {
             sub_tabs.setVisibility(View.VISIBLE);
             for (int i = 0; i < subList.size(); i++) {
                 sub_tabs.addTab(sub_tabs.newTab().setText(subList.get(i).getName()));
