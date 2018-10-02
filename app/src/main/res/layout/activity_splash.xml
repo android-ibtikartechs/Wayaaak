@@ -11,7 +11,7 @@
         android:id="@+id/main_progress"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:src="@drawable/splash_anim"
+        android:src="@drawable/wyak_gif"
         android:layout_gravity="center"
         />
 </LinearLayout>

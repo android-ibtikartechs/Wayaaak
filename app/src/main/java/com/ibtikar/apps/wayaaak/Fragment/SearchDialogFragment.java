@@ -52,7 +52,7 @@ import okhttp3.Response;
 
 import static okhttp3.MultipartBody.FORM;
 
-public class SearchDialogFragment  extends DialogFragment {
+public class SearchDialogFragment  extends DialogFragment implements List_Adapter.onUpdateListener {
 
     VolleySimple volleySimple;
     RecyclerView result_list;
@@ -116,7 +116,7 @@ public class SearchDialogFragment  extends DialogFragment {
                 {
                     filtermap.put("keyword", search_txt.getText().toString());
                     search(filtermap);
-                    hideKeyboard();
+                    //hideKeyboard();
                     return true;
                 }
 
@@ -171,9 +171,7 @@ public class SearchDialogFragment  extends DialogFragment {
             }
         });
 
-        filter_ico.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+
                 filter_ico.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -184,7 +182,7 @@ public class SearchDialogFragment  extends DialogFragment {
                             public void onSubmit(Map<String, String> map) {
                                 System.out.println(map);
                                 filtermap.putAll(map);
-                                init();
+                                search(filtermap);
                             }
 
                             @Override
@@ -198,8 +196,6 @@ public class SearchDialogFragment  extends DialogFragment {
                         });
                     }
                 });
-            }
-        });
     }
 
     public void init() {
@@ -212,6 +208,7 @@ public class SearchDialogFragment  extends DialogFragment {
                 ListResponse response = new Gson().fromJson(s, ListResponse.class);
                 if (response.getStatus().equals("OK")) {
                     listAdapter = new List_Adapter(getContext(), getFragmentManager(), response.getProducts());
+                    listAdapter.setCustomButtonListner(SearchDialogFragment.this);
                     result_list.setAdapter(listAdapter);
                     if (listAdapter.getItemCount() != 0) empty_holder.setVisibility(View.GONE);
                     else {
@@ -237,6 +234,7 @@ public class SearchDialogFragment  extends DialogFragment {
                 ListResponse response = new Gson().fromJson(s, ListResponse.class);
                 if (response.getStatus().equals("OK")) {
                     listAdapter = new List_Adapter(getContext(), getFragmentManager(), response.getProducts());
+                    listAdapter.setCustomButtonListner(SearchDialogFragment.this);
                     result_list.setAdapter(listAdapter);
                     if (listAdapter.getItemCount() != 0) empty_holder.setVisibility(View.GONE);
                     else {
@@ -324,5 +322,19 @@ public class SearchDialogFragment  extends DialogFragment {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    @Override
+    public void onUpdateLikeStatus(int position, boolean status) {
+        if (status)
+            ((ImageView)result_list.findViewHolderForLayoutPosition(position).itemView.findViewById(R.id.product_like_img)).setImageResource(R.drawable.ic_action_liked);
+        else
+            ((ImageView)result_list.findViewHolderForLayoutPosition(position).itemView.findViewById(R.id.product_like_img)).setImageResource(R.drawable.ic_action_unliked);
+
+    }
+
+    @Override
+    public void onUpdatePriceView(int position, String price, String oPrice) {
+
     }
 }

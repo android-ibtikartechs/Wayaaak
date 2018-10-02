@@ -169,22 +169,44 @@ public class Filter_Bottom_Sheet extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 dismiss();
-                if (!price_from.getText().toString().equals(""))
+                if (!price_from.getText().toString().equals("") && price_from != null)
                     dataMap.put("price_from", price_from.getText().toString());
-                if (!price_to.getText().toString().equals(""))
+                if (!price_to.getText().toString().equals("") && price_to != null)
                     dataMap.put("price_to", price_to.getText().toString());
                 listener.onSubmit(dataMap);
+                clearData();
+
+
             }
         });
 
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dismiss();
-                listener.onReset();
+                //countries, cities, district, category;
+                clearData();
+
+                //dismiss();
+                //listener.onReset();
+
             }
         });
 
+    }
+
+    private void clearData() {
+        countries.setSelection(0);
+        cities.setSelection(0);
+        district.setSelection(0);
+        category.setSelection(0);
+        country = null; city = null; area = null;
+
+        cat_id = 0;
+        price_from.setText(null);
+        price_to.setText(null);
+        all.setChecked(false);
+        offer.setChecked(false);
+        dataMap.clear();
     }
 
     public void init() {
@@ -351,4 +373,6 @@ public class Filter_Bottom_Sheet extends BottomSheetDialogFragment {
 
         void onReset();
     }
+
+
 }
