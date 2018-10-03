@@ -39,7 +39,9 @@ public class ListFragment extends Fragment implements List_Adapter.onUpdateListe
     List_Adapter listAdapter;
     Map<String, String> filtermap = new HashMap<>();
     LinearLayout empty_holder;
+    onUpdateListFragmentListener listener;
     int ID;
+
 
 
     public void setSub_list(List<ListItem> subList) {
@@ -70,6 +72,7 @@ public class ListFragment extends Fragment implements List_Adapter.onUpdateListe
         ID = getArguments().getInt("id", -1);
         init(ID);
         System.out.println("id " + getArguments().getInt("id", -1));
+        listener.onOpenListFragment();
         return rootview;
     }
 
@@ -204,4 +207,14 @@ public class ListFragment extends Fragment implements List_Adapter.onUpdateListe
             }
         }
     }
+
+    public interface onUpdateListFragmentListener {
+        void onOpenListFragment();
+        //void onShareClickListener(String imageUri, String text);
+    }
+
+    public void setCustomButtonListner(onUpdateListFragmentListener listener) {
+        this.listener = listener;
+    }
+
 }

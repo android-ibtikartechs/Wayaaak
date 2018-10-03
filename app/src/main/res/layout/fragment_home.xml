@@ -13,9 +13,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="170dp">
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            >
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/image_page_slider"

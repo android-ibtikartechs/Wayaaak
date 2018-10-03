@@ -133,7 +133,7 @@ public class Confirm_Fragment extends Fragment {
         int size = WayaaakAPP.getCartProducts(getContext()).size();
         List<Cart> items = WayaaakAPP.getCartProducts(getContext());
         for (int i = 0; i < size; i++) {
-            map.put("mybookproducts[" + items.get(i).getId() + "]", items.get(i).getQty() + "");
+            map.put("mbookproducts[" + items.get(i).getId() + "]", items.get(i).getQty() + "");
         }
         volleySimple.asyncStringPost(WayaaakAPP.BASE_URL + "addbook", map, new VolleySimple.NetworkListener<String>() {
             @Override

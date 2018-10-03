@@ -1,6 +1,7 @@
 package com.ibtikar.apps.wayaaak.Fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -9,9 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -91,6 +94,24 @@ public class Cart_Fragment extends Fragment {
                 else
                     ((ImageView)cartList.findViewHolderForLayoutPosition(pos).itemView.findViewById(R.id.like_img)).setImageResource(R.drawable.ic_action_unliked);
 
+            }
+
+            @Override
+            public void onUpdatePrice(int pos) {
+
+                if (((TextView)cartList.findViewHolderForLayoutPosition(pos).itemView.findViewById(R.id.edit_tvbtn)).getText().toString().equals("تعديل")) {
+                    ((TextView)cartList.findViewHolderForLayoutPosition(pos).itemView.findViewById(R.id.edit_tvbtn)).setText("حفظ");
+                    ((TextView)cartList.findViewHolderForLayoutPosition(pos).itemView.findViewById(R.id.edit_tvbtn)).setTextColor(Color.parseColor("#0b94c8"));
+                    ((Spinner)cartList.findViewHolderForLayoutPosition(pos).itemView.findViewById(R.id.qty_spin)).setEnabled(true);
+                } else {
+                    ((TextView)cartList.findViewHolderForLayoutPosition(pos).itemView.findViewById(R.id.edit_tvbtn)).setText("تعديل");
+                    ((TextView)cartList.findViewHolderForLayoutPosition(pos).itemView.findViewById(R.id.edit_tvbtn)).setTextColor(Color.parseColor("#717171"));
+                    ((Spinner)cartList.findViewHolderForLayoutPosition(pos).itemView.findViewById(R.id.qty_spin)).setEnabled(false);
+                    WayaaakAPP.getCartProducts(getContext()).get(pos).setQty(((Spinner)cartList.findViewHolderForLayoutPosition(pos).itemView.findViewById(R.id.qty_spin)).getSelectedItemPosition() + 1);
+                    WayaaakAPP.addToCart(getContext(), WayaaakAPP.getCartProducts(getContext()).get(pos));
+                    cartAdapter.notifyDataSetChanged();
+                    onUpdate();
+                }
             }
         });
 

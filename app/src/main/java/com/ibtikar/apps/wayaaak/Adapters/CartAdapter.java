@@ -93,19 +93,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (holder.edit.getText().toString().equals("تعديل")) {
-                    holder.edit.setText("حفظ");
-                    holder.edit.setTextColor(Color.parseColor("#0b94c8"));
-                    holder.qty.setEnabled(true);
-                } else {
-                    holder.edit.setText("تعديل");
-                    holder.edit.setTextColor(Color.parseColor("#717171"));
-                    holder.qty.setEnabled(false);
-                    cartList.get(position).setQty(holder.qty.getSelectedItemPosition() + 1);
-                    WayaaakAPP.addToCart(context, cartList.get(position));
-                    notifyDataSetChanged();
-                    listener.onUpdate();
-                }
+                listener.onUpdatePrice(position);
             }
         });
         holder.container.setOnClickListener(new View.OnClickListener() {
@@ -251,6 +239,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     public interface onUpdateListener {
         void onUpdate();
         void onUpdateLike(int pos, boolean status);
+        void onUpdatePrice(int pos);
     }
     public void setCustomButtonListner(onUpdateListener listener) {
         this.listener = listener;

@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.text.TextUtilsCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.LayoutDirection;
 import android.util.Log;
@@ -45,11 +47,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements ListFragment.onUpdateListFragmentListener {
     VolleySimple volleySimple;
     Toolbar toolbar;
     ExpandableListView catnawlist;
     private SlidingRootNav slidingRootNav;
+    CardView appBarLayout;
     BottomBar bottomBar;
     private OnAboutDataReceivedListener mAboutDataListener;
     @Override
@@ -60,6 +63,7 @@ public class MainActivity extends BaseActivity {
         Intent intent = getIntent();
 
         toolbar = findViewById(R.id.toolbar);
+        appBarLayout = findViewById(R.id.appBarMain);
         setSupportActionBar(toolbar);
         volleySimple = VolleySimple.getInstance(this);
         slidingRootNav = new SlidingRootNavBuilder(this)
@@ -307,6 +311,7 @@ public class MainActivity extends BaseActivity {
                             bundle.putInt("id", Integer.valueOf(String.valueOf(cid)));
                             bundle.putString("title", ((Category) sliderNavAdapter.getGroup(groupPosition)).getName());
                             ListFragment listFragment = new ListFragment();
+                            listFragment.setCustomButtonListner(MainActivity.this);
                             listFragment.setArguments(bundle);
                             listFragment.setSub_list((List<ListItem>) sliderNavAdapter.getChild(groupPosition, childPosition));
                             getSupportFragmentManager().beginTransaction().add(R.id.main_content, listFragment, "").addToBackStack("").commit();
@@ -369,6 +374,11 @@ public class MainActivity extends BaseActivity {
         listView.setLayoutParams(params);
         listView.requestLayout();
 
+    }
+
+    @Override
+    public void onOpenListFragment() {
+        //appBarLayout.setCardElevation(0);
     }
 
 

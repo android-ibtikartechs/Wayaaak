@@ -2,7 +2,7 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="3dp"
+    app:cardCornerRadius="2dp"
     android:layout_margin="10dp"
     android:layout_height="190dp">
 
@@ -24,7 +24,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
+
+        android:layout_above="@id/lout_mark"
         >
 
         <LinearLayout
@@ -53,6 +54,15 @@
             android:textSize="16sp"
             />
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/lout_mark"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/tw__composer_blue"
+        android:layout_alignParentBottom="true"
+        />
 
 </RelativeLayout>
 </android.support.v7.widget.CardView>

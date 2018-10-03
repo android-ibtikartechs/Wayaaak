@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ibtikar.apps.wayaaak.Fragment.ListFragment;
+import com.ibtikar.apps.wayaaak.MainActivity;
 import com.ibtikar.apps.wayaaak.Models.HomeCategory;
 import com.ibtikar.apps.wayaaak.Models.ListItem;
 import com.ibtikar.apps.wayaaak.R;
@@ -72,6 +73,7 @@ public class Category_Adapter extends RecyclerView.Adapter<Category_Adapter.NewV
         bundle.putInt("id", categories.get(pos).getId());
         bundle.putString("title", categories.get(pos).getParentcategory_name());
         ListFragment listFragment = new ListFragment();
+        listFragment.setCustomButtonListner((MainActivity) context);
         listFragment.setArguments(bundle);
         List<ListItem> items = categories.get(pos).getSublist();
         /*ListItem item = new ListItem();
