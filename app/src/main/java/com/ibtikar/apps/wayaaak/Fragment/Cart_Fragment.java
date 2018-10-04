@@ -33,7 +33,8 @@ public class Cart_Fragment extends Fragment {
     CartAdapter cartAdapter;
     VolleySimple volleySimple;
     TextView total, title;
-    CardView checkout, total_holder;
+    CardView checkout;
+    LinearLayout total_holder;
     ImageView back_ico, filter_ico;
     RelativeLayout toolbar_holder;
     LinearLayout empty_holder;

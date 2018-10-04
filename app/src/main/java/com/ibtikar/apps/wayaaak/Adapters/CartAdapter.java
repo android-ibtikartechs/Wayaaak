@@ -12,7 +12,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,7 +61,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.total.setText(cartList.get(position).getTotal() + " EGP");
         holder.price.setText("(" + cartList.get(position).getPrice() + "X" + cartList.get(position).getQty() + ")");
         holder.qty.setSelection(cartList.get(position).getQty() - 1);
-        holder.qty.setEnabled(false);
+        //holder.qty.setEnabled(false);
         holder.title.setText(cartList.get(position).getName());
         Glide.with(context).load(cartList.get(position).getPhoto()).asBitmap().into(holder.photo);
 
@@ -90,10 +92,47 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 dialog.show();
             }
         });
+
+        holder.qty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                cartList.get(position).setQty(holder.qty.getSelectedItemPosition() + 1);
+                WayaaakAPP.getCartProducts(context).get(position).setQty(cartList.get(position).getQty());
+                WayaaakAPP.addToCart(context, cartList.get(position));
+                notifyDataSetChanged();
+                listener.onUpdate();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onUpdatePrice(position);
+                //listener.onUpdatePrice(position);
+
+
+
+
+                /*
+                if (holder.edit.getText().toString().equals("تعديل")) {
+                    holder.edit.setText("حفظ");
+                    holder.edit.setTextColor(Color.parseColor("#0b94c8"));
+                    holder.qty.setEnabled(true);
+                } else {
+                    holder.edit.setText("تعديل");
+                    holder.edit.setTextColor(Color.parseColor("#717171"));
+                    holder.qty.setEnabled(false);
+                    cartList.get(position).setQty(holder.qty.getSelectedItemPosition() + 1);
+                    WayaaakAPP.getCartProducts(context).get(position).setQty(cartList.get(position).getQty());
+                    WayaaakAPP.addToCart(context, cartList.get(position));
+                    notifyDataSetChanged();
+
+                }
+                listener.onUpdate();*/
             }
         });
         holder.container.setOnClickListener(new View.OnClickListener() {
@@ -217,7 +256,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        CardView container;
+        LinearLayout container;
         ImageView photo, like;
         TextView title, price, total, remove, edit;
         Spinner qty;
