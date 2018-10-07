@@ -3,7 +3,23 @@ package com.ibtikar.apps.wayaaak.Models;
 public class AddressBook {
 
     int id, countryid, cityid, districtid;
-    String countryname, cityname, districtname, latitude, longtude, name, mobile;
+    String countryname, cityname, districtname, latitude, longtude, name, mobile, fees, delivary_availability;
+
+    public void setFees(String fees) {
+        this.fees = fees;
+    }
+
+    public String getFees() {
+        return fees;
+    }
+
+    public void setDelivary_availability(String delivary_availability) {
+        this.delivary_availability = delivary_availability;
+    }
+
+    public String getDelivary_availability() {
+        return delivary_availability;
+    }
 
     public int getId() {
         return id;
@@ -94,8 +110,13 @@ public class AddressBook {
     }
 
     public String getAddress() {
+        String availability;
+        if (getDelivary_availability().equals("true"))
+            availability = "متاح";
+        else
+            availability = "غير متاح";
         String content = getName() + "\n" + getMobile() + "\n"
-                + getCountryname() + " - " + getCityname() + " - " + getDistrictname();
+                + getCountryname() + " - " + getCityname() + " - " + getDistrictname() + "\n" + "رسوم الشحن : " + getFees() + "\n" + "إمكانية الشحن : " + availability;
         return content;
     }
 }

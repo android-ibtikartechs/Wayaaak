@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ibtikar.apps.wayaaak.Models.AddressBook;
 import com.ibtikar.apps.wayaaak.R;
@@ -38,7 +39,10 @@ public class Address_List_Adapter extends RecyclerView.Adapter<Address_List_Adap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClick(list.get(position));
+                if (list.get(position).getDelivary_availability().equals("true"))
+                    listener.onClick(list.get(position));
+                else
+                    Toast.makeText(context, "هذا العنوان غير متاح للشخن حاليا برجاء اختيار عنوان آخر", Toast.LENGTH_SHORT).show();
             }
         });
     }

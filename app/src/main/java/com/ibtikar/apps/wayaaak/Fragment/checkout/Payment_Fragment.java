@@ -18,7 +18,7 @@ import com.ibtikar.apps.wayaaak.Tools.WayaaakAPP;
 public class Payment_Fragment extends Fragment {
     TextView contiune, address_info_txt, total;
     LinearLayout one_btn, two_btn;
-    int deliver_option = -1;
+    int deliver_option = 1;
     TextView one_cost, one_time, two_cost, two_time, free_btn;
     EditText note_edtx;
     AddressBook address;

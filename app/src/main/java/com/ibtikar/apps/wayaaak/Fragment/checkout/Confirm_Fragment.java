@@ -23,6 +23,7 @@ import com.ibtikar.apps.wayaaak.R;
 import com.ibtikar.apps.wayaaak.Tools.WayaaakAPP;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public class Confirm_Fragment extends Fragment {
     RecyclerView cartList;
     MiniCartAdapter cartAdapter;
     AddressBook address;
-    int deliver_option = -1;
+    int deliver_option = 1;
     String note = "";
     VolleySimple volleySimple;
     User user;
@@ -124,17 +125,19 @@ public class Confirm_Fragment extends Fragment {
     public void addorder() {
         ProgressDialog progressDialog = ProgressDialog.show(getContext(), "انتظر من فضلك", "", false, false);
         Map<String, String> map = new HashMap<>();
-        map.put("bdate", "");
-        map.put("btime", "");
+        //map.put("bdate", "");
+        //map.put("btime", "");
         map.put("bcharge", String.valueOf(deliver_option));
-        map.put("bcomment", note);
+        //map.put("bcomment", note);
         map.put("buser", String.valueOf(user.getId()));
         map.put("baddress", String.valueOf(address.getId()));
         int size = WayaaakAPP.getCartProducts(getContext()).size();
         List<Cart> items = WayaaakAPP.getCartProducts(getContext());
         for (int i = 0; i < size; i++) {
-            map.put("mbookproducts[" + items.get(i).getId() + "]", items.get(i).getQty() + "");
+            map.put("mybookproducts[" + items.get(i).getId() + "]", items.get(i).getQty() + "");
         }
+        Log.d("TAG", "addorder: " + tolString(map));
+
         volleySimple.asyncStringPost(WayaaakAPP.BASE_URL + "addbook", map, new VolleySimple.NetworkListener<String>() {
             @Override
             public void onResponse(String s) {
@@ -152,5 +155,22 @@ public class Confirm_Fragment extends Fragment {
                 e.printStackTrace();
             }
         }, progressDialog);
+    }
+
+    public String tolString(Map<String, String> map) {
+        StringBuilder sb = new StringBuilder();
+        Iterator<Map.Entry<String, String>> iter = map.entrySet().iterator();
+        while (iter.hasNext()) {
+            Map.Entry<String, String> entry = iter.next();
+            sb.append(entry.getKey());
+            sb.append('=').append('"');
+            sb.append(entry.getValue());
+            sb.append('"');
+            if (iter.hasNext()) {
+                sb.append(',').append(' ');
+            }
+        }
+        return sb.toString();
+
     }
 }

@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".checkout.AddAddressFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/line_white_grey"
+            android:layout_margin="16dp"
+            >
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray1"
+            android:textCursorDrawable="@null"
+            android:maxLines="1"
+            android:background="@null"
+            android:hint="الإسم"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/line_white_grey"
+            android:layout_margin="16dp"
+            >
+        </RelativeLayout>
+
+
+        <EditText
+            android:id="@+id/etPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray1"
+            android:background="@null"
+            android:hint="رقم التيليفون"
+            android:maxLines="1"
+            android:textCursorDrawable="@null"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/line_white_grey"
+            android:layout_margin="16dp"
+            >
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                >
+                <AutoCompleteTextView
+                    android:id="@+id/governrote_auto_tex_view_sign_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="اسم المحافظة"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:background="@null"
+                    android:textColorHint="@color/gray1"
+                    android:imeOptions="flagNoExtractUi|actionSearch"
+                    android:textCursorDrawable="@null"
+                    />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/line_white_grey"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <AutoCompleteTextView
+                    android:id="@+id/city_auto_tex_view_sign_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:background="@null"
+                    android:hint="المدينة / الحي"
+                    android:enabled="false"
+                    android:textColor="@color/black"
+                    android:maxLines="1"
+                    android:textColorHint="@color/gray1"
+                    android:imeOptions="flagNoExtractUi|actionSearch"
+                    android:textCursorDrawable="@null"
+                    />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/line_white_grey"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/etPostNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray1"
+            android:background="@null"
+            android:hint="الرقم البريدي"
+            android:layout_marginTop="16dp"
+            android:maxLines="1"
+            android:textCursorDrawable="@null"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/line_white_grey"
+            android:layout_margin="16dp"
+            >
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="برجاء تحديد مكانك على الخريطة بدقة لمساعدة شركة الشحن في الوصول إليك"
+            android:textColor="@color/colorPrice"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/shape_edit_text"
+            android:id="@+id/relayout1"
+            >
+
+            <ImageView
+                android:id="@+id/ic_magnify"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_magnify"
+                />
+
+            <AutoCompleteTextView
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/ic_magnify"
+                android:layout_toEndOf="@id/ic_magnify"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:background="@null"
+                android:textCursorDrawable="@null"
+                android:hint="بحث عن العنوان"
+                android:textColorHint="@color/gray1"
+                android:imeOptions="actionSearch"
+                android:maxLines="1"
+                android:inputType="text"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/lout_map"
+            android:layout_width="match_parent"
+            android:layout_height="350dp">
+            <fragment
+                android:id="@+id/map"
+                android:name="com.ibtikar.apps.wayaaak.Tools.WorkaroundMapFragment"
+                android:layout_width="match_parent" android:layout_height="350dp" />
+
+            <RelativeLayout
+                android:id="@+id/imageView123"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                />
+
+            <ImageView
+                android:id="@+id/ic_gps"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentRight="true"
+                android:layout_margin="15dp"
+                android:src="@drawable/ic_action_my_location"
+                />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_map_marker"
+                />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="center_vertical"
+            >
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_map_icon"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                >
+
+
+                <EditText
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:background="@null"
+                    android:textCursorDrawable="@null"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:hint="العنوان"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="9sp"
+                    android:textColor="@color/gray1"
+                    android:text="* يمكنك التعديل يدويا على العنوان بعد اختياره من الخريطة"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnNextStep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_rounded_blue_button"
+            android:layout_margin="16dp"
+            android:text="تأكيد البيانات والانتقال للخطوة التالية"
+            android:textColor="@color/colorPrimary"
+            />
+
+    </LinearLayout>
+    <!-- TODO: Update blank fragment layout -->
+
+
+
+</ScrollView>

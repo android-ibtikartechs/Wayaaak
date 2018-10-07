@@ -12,6 +12,7 @@
     <color name="blackLite">#af000000</color>
     <color name="red">#d73535</color>
     <color name="gray1">#9E9E9E</color>
+    <color name="boarder">#BDBDBD</color>
     <color name="colorPrice">#EB5757</color>
 
 </resources>

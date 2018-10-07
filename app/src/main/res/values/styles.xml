@@ -10,6 +10,14 @@
 
     </style>
 
+    <style name="tab_bar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">42dp</item>
+        <item name="android:tabStripEnabled">false</item>
+        <item name="tabPaddingStart">1.5dp</item>
+        <item name="tabPaddingEnd">0dp</item>
+    </style>
+
     <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
         <item name="color">@color/colorAccent</item>
