@@ -51,7 +51,7 @@ public class Payment_Fragment extends Fragment {
         address_info_txt = view.findViewById(R.id.address_info_txt);
         note_edtx = view.findViewById(R.id.note_txt);
         total = view.findViewById(R.id.total_txt);
-        address_info_txt.setText(address.getAddress() + "\n" + "الشحن : " + getOptionString(deliver_option));
+        address_info_txt.setText(address.getAddress());
     }
 
     public void listener() {
@@ -83,7 +83,7 @@ public class Payment_Fragment extends Fragment {
                 two_cost.setTextColor(Color.parseColor("#000000"));
                 one_cost.setTextColor(Color.parseColor("#000000"));
                 deliver_option = 1;
-                address_info_txt.setText(address.getAddress() + "\n" + "الشحن : " + getOptionString(deliver_option));
+                address_info_txt.setText(address.getAddress() );
                 initTotal(0);
             }
         });
@@ -97,7 +97,7 @@ public class Payment_Fragment extends Fragment {
                 two_cost.setTextColor(Color.parseColor("#000000"));
                 free_btn.setTextColor(Color.parseColor("#717171"));
                 deliver_option = 2;
-                address_info_txt.setText(address.getAddress() + "\n" + "الشحن : " + getOptionString(deliver_option));
+                address_info_txt.setText(address.getAddress() );
                 initTotal(49);
             }
         });
@@ -111,7 +111,7 @@ public class Payment_Fragment extends Fragment {
                 one_cost.setTextColor(Color.parseColor("#000000"));
                 free_btn.setTextColor(Color.parseColor("#717171"));
                 deliver_option = 3;
-                address_info_txt.setText(address.getAddress() + "\n" + "الشحن : " + getOptionString(deliver_option));
+                address_info_txt.setText(address.getAddress());
                 initTotal(149);
             }
         });

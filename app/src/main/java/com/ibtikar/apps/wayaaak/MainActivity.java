@@ -54,6 +54,7 @@ public class MainActivity extends BaseActivity implements ListFragment.onUpdateL
     private SlidingRootNav slidingRootNav;
     CardView appBarLayout;
     BottomBar bottomBar;
+    BottomBarTab carticon;
     private OnAboutDataReceivedListener mAboutDataListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +81,7 @@ public class MainActivity extends BaseActivity implements ListFragment.onUpdateL
 
         bottomBar = findViewById(R.id.bottomBar);
 
-        BottomBarTab carticon = bottomBar.getTabWithId(R.id.menu_cart);
+        carticon = bottomBar.getTabWithId(R.id.menu_cart);
         carticon.setBadgeCount(WayaaakAPP.getCartProducts(this).size());
 
 
@@ -241,11 +242,13 @@ public class MainActivity extends BaseActivity implements ListFragment.onUpdateL
 
     @Override
     public void onBackPressed() {
+        carticon.setBadgeCount(WayaaakAPP.getCartProducts(this).size());
         //super.onBackPressed();
        slidingRootNav.isMenuOpened();
         if (slidingRootNav.isMenuOpened()) {
             slidingRootNav.closeMenu();
         }
+
 
 
 

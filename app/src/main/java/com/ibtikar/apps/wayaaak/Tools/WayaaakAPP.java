@@ -2,13 +2,17 @@ package com.ibtikar.apps.wayaaak.Tools;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.ConnectivityManager;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.DisplayMetrics;
@@ -23,6 +27,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Hosam Azzam on 2/22/2018.
@@ -220,5 +225,38 @@ public class WayaaakAPP {
         }
         return total;
     }
+
+    public static ContextWrapper changeLanguage(Context context, String lang_code) {
+        Locale sysLocale;
+
+        Resources rs = context.getResources();
+        Configuration config = rs.getConfiguration();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            sysLocale = config.getLocales().get(0);
+        } else {
+            sysLocale = config.locale;
+        }
+        if (!lang_code.equals("") && !sysLocale.getLanguage().equals(lang_code)) {
+            String country = "ARE";
+            Locale locale = new Locale(lang_code,country);
+            Locale.setDefault(locale);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                config.setLocale(locale);
+            } else {
+                config.locale = locale;
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                config.setLayoutDirection(locale);
+                context = context.createConfigurationContext(config);
+            } else {
+                context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+            }
+
+        }
+
+        return new ContextWrapper(context);
+    }
+
 
 }

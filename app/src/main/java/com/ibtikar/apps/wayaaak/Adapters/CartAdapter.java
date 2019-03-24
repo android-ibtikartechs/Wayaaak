@@ -76,7 +76,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 builder.setPositiveButton("حذف", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         WayaaakAPP.removeFromCart(context, cartList.get(position));
-                        notifyDataSetChanged();
+                        cartList.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, cartList.size());
+                        //notifyDataSetChanged();
                         listener.onUpdate();
 
                     }

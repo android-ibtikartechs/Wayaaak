@@ -141,7 +141,6 @@
                     android:paddingStart="10dp"
                     android:paddingTop="10dp"
                     android:text="معلومات الشحن"
-                    android:textAlignment="viewEnd"
                     android:textColor="@color/colorAccent"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -154,7 +153,6 @@
                     android:paddingBottom="15dp"
                     android:paddingEnd="10dp"
                     android:paddingStart="10dp"
-                    android:textAlignment="viewEnd"
                     android:textColor="@color/graydark"
                     android:textSize="16sp"
                     android:textStyle="normal" />
@@ -191,12 +189,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:buttonTint="@color/colorAccent"
+                        android:buttonTint="@color/gray"
                         android:checked="false"
                         android:enabled="false"
                         android:drawableStart="@drawable/ic_action_credit"
                         android:text="   الدفع اونلاين"
-                        android:textColor="@color/grayblack"
+                        android:textColor="@color/gray1"
                         android:textSize="18sp" />
                 </RadioGroup>
 
@@ -212,7 +210,6 @@
                     android:hint="ملاحظات"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:textAlignment="viewEnd"
                     android:textColor="@color/graydark"
                     android:textSize="18sp" />
 
@@ -341,12 +338,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:paddingEnd="10dp"
                         android:paddingStart="10dp"
                         android:text="المستحق"
-                        android:textAlignment="viewEnd"
                         android:textColor="@color/colorAccent"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -359,7 +354,7 @@
                         android:paddingEnd="10dp"
                         android:paddingStart="10dp"
                         android:text="2,456 EGP"
-                        android:textAlignment="viewEnd"
+                        android:layout_alignParentEnd="true"
                         android:textColor="@color/colorAccent"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -372,7 +367,6 @@
                     android:paddingEnd="10dp"
                     android:paddingStart="10dp"
                     android:text="إذا لم تستلم السلعة التى اشتريتها,أو كانت الساعة غير مطابقة للمواصفات التى قدمها البائع،قدم شكوى لمحاولة حل هذة المشكلة قبل ان تقوم بوضع تقييمك."
-                    android:textAlignment="viewEnd"
                     android:textColor="@color/grayblack"
                     android:textSize="16sp"
                     android:textStyle="normal" />

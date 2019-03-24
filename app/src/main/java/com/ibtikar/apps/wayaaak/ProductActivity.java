@@ -60,6 +60,7 @@ public class ProductActivity extends BaseActivity implements SuggestedProductsAd
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_sec);
+        WayaaakAPP.changeLanguage(this,"ar");
         volleySimple = VolleySimple.getInstance(this);
         user = WayaaakAPP.getUserLoginInfo(this);
 
@@ -424,5 +425,11 @@ public class ProductActivity extends BaseActivity implements SuggestedProductsAd
         Intent intent = new Intent(ProductActivity.this, ProductActivity.class);
         intent.putExtra("id", Integer.valueOf(id));
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        WayaaakAPP.setBadgeCount(this, (LayerDrawable) cart.getDrawable(), String.valueOf(WayaaakAPP.getCartProducts(this).size()));
+        super.onBackPressed();
     }
 }

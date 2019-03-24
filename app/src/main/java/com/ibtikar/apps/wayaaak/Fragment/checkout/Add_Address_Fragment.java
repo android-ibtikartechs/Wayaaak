@@ -522,6 +522,7 @@ public class Add_Address_Fragment extends Fragment implements OnMapReadyCallback
         volleySimple.asyncStringPost(WayaaakAPP.BASE_URL + "addaddressbook", map, new VolleySimple.NetworkListener<String>() {
             @Override
             public void onResponse(String s) {
+                Log.d("", "onResponse: " + s);
                 AddressBook addressBook = new Gson().fromJson(s, AddressBook.class);
                 Payment_Fragment payment_fragment = new Payment_Fragment();
                 payment_fragment.setAddress(addressBook);

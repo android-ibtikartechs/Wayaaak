@@ -142,24 +142,10 @@
                         android:paddingStart="10dp"
                         android:paddingTop="10dp"
                         android:text="معلومات الشحن"
-                        android:textAlignment="viewEnd"
                         android:textColor="@color/colorAccent"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/address_edit_txt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:paddingEnd="10dp"
-                        android:paddingStart="10dp"
-                        android:paddingTop="10dp"
-                        android:text="تعديل"
-                        android:textAlignment="viewEnd"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
                 </RelativeLayout>
 
                 <TextView
@@ -169,7 +155,6 @@
                     android:paddingBottom="15dp"
                     android:paddingEnd="10dp"
                     android:paddingStart="10dp"
-                    android:textAlignment="viewEnd"
                     android:textColor="@color/graydark"
                     android:textSize="16sp"
                     android:textStyle="normal" />
@@ -191,24 +176,10 @@
                         android:paddingStart="10dp"
                         android:paddingTop="10dp"
                         android:text="معلومات الشحن"
-                        android:textAlignment="viewEnd"
                         android:textColor="@color/colorAccent"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/cart_edit_txt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:paddingEnd="10dp"
-                        android:paddingStart="10dp"
-                        android:paddingTop="10dp"
-                        android:text="تعديل"
-                        android:textAlignment="viewEnd"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
 
                 </RelativeLayout>
 
@@ -228,12 +199,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+
                         android:layout_centerVertical="true"
                         android:paddingEnd="10dp"
                         android:paddingStart="10dp"
                         android:text="المطلوب"
-                        android:textAlignment="viewEnd"
                         android:textColor="@color/graydark"
                         android:textSize="18sp"
                         android:textStyle="normal" />
@@ -245,8 +215,8 @@
                         android:layout_centerVertical="true"
                         android:paddingEnd="10dp"
                         android:paddingStart="10dp"
+                        android:layout_alignParentEnd="true"
                         android:text="2,456 EGP"
-                        android:textAlignment="viewEnd"
                         android:textColor="@color/graydark"
                         android:textSize="18sp"
                         android:textStyle="normal" />
@@ -260,12 +230,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:paddingEnd="10dp"
                         android:paddingStart="10dp"
                         android:text="رسوم الشحن"
-                        android:textAlignment="viewEnd"
                         android:textColor="@color/graydark"
                         android:textSize="18sp"
                         android:textStyle="normal" />
@@ -276,6 +244,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:paddingEnd="10dp"
+                        android:layout_alignParentEnd="true"
                         android:paddingStart="10dp"
                         android:text="2,456 EGP"
                         android:textAlignment="viewEnd"
@@ -292,12 +261,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:paddingEnd="10dp"
                         android:paddingStart="10dp"
                         android:text="الأجمالى"
-                        android:textAlignment="viewEnd"
                         android:textColor="@color/colorAccent"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -310,7 +277,7 @@
                         android:paddingEnd="10dp"
                         android:paddingStart="10dp"
                         android:text="2,456 EGP"
-                        android:textAlignment="viewEnd"
+                        android:layout_alignParentEnd="true"
                         android:textColor="@color/colorAccent"
                         android:textSize="20sp"
                         android:textStyle="bold" />
